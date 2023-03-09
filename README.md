@@ -1,8 +1,8 @@
 # CFGAA - Rowan Cruse Howse - Assignment
 # PROJECT TITLE (TODO)
-##Contact Info
+## Contact Info
 email: s5408935@bournemouth.ac.uk
 
-##Overview
+## Overview
 
-##Instructions
+## Instructions
