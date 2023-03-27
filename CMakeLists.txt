@@ -10,11 +10,13 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 
-add_executable(NBodyUI src/main.cpp)
-target_include_directories(NBodyUI PUBLIC include)
-target_include_directories(NBodyUI PUBLIC $ENV{HOME}/NGL/include)
-
+include_directories("${CMAKE_CURRENT_BINARY_DIR}/include")
+include_directories("$ENV{HOME}/NGL/include")
+include_directories("${Qt6Widgets_INCLUDE_DIRS}")
 add_subdirectory(nbodysim)
+
+add_executable(NBodyUI src/main.cpp src/appwindow.cpp include/appwindow.h)
+
 
 target_link_libraries(NBodyUI PRIVATE NBodyParticleSim)
 

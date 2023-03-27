@@ -6,11 +6,11 @@
 
 class NBodyParticleSim
 {
-    public:
-        NBodyParticleSim();
-        ~NBodyParticleSim();
-    
-    private:
+  public:
+    NBodyParticleSim();
+    ~NBodyParticleSim();
+
+  private:
 
 };
 

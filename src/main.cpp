@@ -2,9 +2,12 @@
 // 
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
-#include "nbodyparticlesim.h"
-int main()
+#include "appwindow.h"
+#include <QApplication>
+int main(int argc, char *argv[])
 {
-    NBodyParticleSim sim;
-    return 0;
+  QApplication app(argc, argv);
+  AppWindow mainWindow("NBody Particle Simulator ");
+  mainWindow.show();  
+  return app.exec();
 }

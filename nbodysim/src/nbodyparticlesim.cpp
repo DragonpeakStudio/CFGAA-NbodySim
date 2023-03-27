@@ -2,7 +2,7 @@
 
 NBodyParticleSim::NBodyParticleSim()
 {
-    std::cerr << "Hello Particles\n";
+  std::cerr << "Hello Particles\n";
 }
 
 NBodyParticleSim::~NBodyParticleSim()
