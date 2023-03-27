@@ -5,7 +5,10 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QString>
-
+#include <QMenuBar>
+#include <QDockWidget>
+#include "controlbar.h"
+#include "renderwidget.h"
 class AppWindow : public QMainWindow
 {
   Q_OBJECT
@@ -16,6 +19,10 @@ class AppWindow : public QMainWindow
     ~AppWindow();
   
   private:
+    void setupUI();
+    QMenu *m_fileMenu;
+    QDockWidget *m_controlBar;
+    RenderWidget *m_renderWidget;
 
 };
 
