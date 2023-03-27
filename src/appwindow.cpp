@@ -33,6 +33,13 @@ void AppWindow::setupUI()
   m_controlBar->setMinimumWidth(400);
   addDockWidget(Qt::RightDockWidgetArea, m_controlBar);
 
+  m_frameSlider = new QDockWidget("Frame");
+  m_frameSlider->setAllowedAreas(Qt::BottomDockWidgetArea | Qt::TopDockWidgetArea);
+  m_frameSlider->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable);
+  m_frameSlider->setWidget(new FrameSlider());
+  addDockWidget(Qt::BottomDockWidgetArea, m_frameSlider);
+
+
   m_renderWidget = new RenderWidget();
   setCentralWidget(m_renderWidget);
 

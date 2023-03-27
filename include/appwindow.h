@@ -9,6 +9,7 @@
 #include <QDockWidget>
 #include "controlbar.h"
 #include "renderwidget.h"
+#include "frameslider.h"
 class AppWindow : public QMainWindow
 {
   Q_OBJECT
@@ -23,6 +24,7 @@ class AppWindow : public QMainWindow
     QMenu *m_fileMenu;
     QDockWidget *m_controlBar;
     RenderWidget *m_renderWidget;
+    QDockWidget *m_frameSlider;
 
 };
 
