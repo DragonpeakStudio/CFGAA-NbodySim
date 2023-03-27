@@ -21,17 +21,28 @@ FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)
   m_frameEnd->setValue(240);
   layout()->addWidget(m_frameEnd);
 
-  connect(m_frameEnd, &QSpinBox::valueChanged, m_slider, &QSlider::setMaximum);
-  connect(m_frameEnd, &QSpinBox::valueChanged, m_frameNum, &QSpinBox::setMaximum);
+  connect(m_frameEnd, &QSpinBox::valueChanged, this, &FrameSlider::setEnd);
 
-  connect(m_frameNum, &QSpinBox::valueChanged, m_slider, &QSlider::setValue);
-  connect(m_slider, &QSlider::valueChanged, m_frameNum, &QSpinBox::setValue);
-
-
+  connect(m_frameNum, &QSpinBox::valueChanged, this, &FrameSlider::setFrame);
+  connect(m_slider, &QSlider::valueChanged, this, &FrameSlider::setFrame);
 
 }
 
 FrameSlider::~FrameSlider()
 {
+
+}
+void FrameSlider::setFrame(int _frame)
+{
+  m_frameNum->setValue(_frame);
+  m_slider->setValue(_frame);
+  emit frameChanged(_frame);
+}
+void FrameSlider::setEnd(int _end)
+{
+  m_frameEnd->setValue(_end);
+  m_frameNum->setMaximum(_end);
+  m_slider->setMaximum(_end);
+  emit endFrameChanged(_end);
 
 }

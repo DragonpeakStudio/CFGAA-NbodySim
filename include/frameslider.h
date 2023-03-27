@@ -14,6 +14,15 @@ class FrameSlider : public QWidget
   public:
     FrameSlider(QWidget *_parent=nullptr);
     ~FrameSlider();
+  
+  public slots:
+    void setFrame(int _frame);
+    void setEnd(int _end);
+
+  signals:
+    void frameChanged(int _newFrame);
+    void endFrameChanged(int _newEndFrame);
+
 
   private:
     QSlider *m_slider;
