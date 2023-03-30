@@ -7,6 +7,7 @@
 #include <QWheelEvent>
 #include <QOpenGLWidget>
 #include <ngl/Obj.h>
+#include <random>
 
 #include "nbodyparticlesystem.h"
 #include "particlerenderer.h"
