@@ -7,7 +7,7 @@ A GPU accelerated N-Body particle system for simulating gravitational effects, s
 The program uses OpenGL, via NGL, for compute shader based processing and particle rendering as well as QT6 for the user interface.
 As a basis for implementing the N-Body algorithm I will be using: https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-31-fast-n-body-simulation-cuda
 Although I will be using GLSL compute shaders not CUDA the same algorithm can be implemented.
-Initially I will implment the simple All Pairs algorithm, essentially just looping through all particles for each particle and summing forces (N^2 complexity). If time allows I might also look into some form of approximation for distant particles to avoid looping though them all, the above chapter briefly discusses hierarchical approaches.
+Initially I will implement the simple All Pairs algorithm, essentially just looping through all particles for each particle and summing forces (N^2 complexity). If time allows I might also look into some form of approximation for distant particles to avoid looping though them all, the above chapter briefly discusses hierarchical approaches.
 
 ## Design
 The program is divided into two main parts, A library containing the functionality to process the particles and the user interface which uses the classes provided by this library.
