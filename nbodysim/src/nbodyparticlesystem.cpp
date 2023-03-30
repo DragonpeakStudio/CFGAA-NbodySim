@@ -18,7 +18,7 @@ void NBodyParticleSystem::processToFrame(size_t _frame, float _delta)
   }
   while(m_particleBuffers.size()+1 <= _frame)
   {
-    processNextFrame();
+    processNextFrame(_delta);
   }
 }
 void NBodyParticleSystem::clearFrame(size_t _frame)
@@ -47,8 +47,17 @@ void NBodyParticleSystem::eraseAfterFrame(size_t _frame)
     m_particleBuffers.pop_back();
   }
 }
-void NBodyParticleSystem::processNextFrame()
+void NBodyParticleSystem::processNextFrame(float _delta)
 {
-  //CALC NEXT FRAME
-  m_particleBuffers.emplace_back(0);//TODO invoke of compute and create next
+  auto lastSsbo = m_particleBuffers.back().ssbo();
+  auto lastSize = m_particleBuffers.back().particleCount();
+  m_particleBuffers.emplace_back(lastSize);
+  ngl::ShaderLib::use(m_updateProcess);
+  ngl::ShaderLib::setUniform("delta", _delta);
+  glBindBuffer(GL_SHADER_STORAGE_BUFFER, lastSsbo);
+  glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0,lastSsbo);
+  glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_particleBuffers.back().ssbo());
+  glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1,m_particleBuffers.back().ssbo());
+  glDispatchCompute(m_particleBuffers.back().particleCount()/100, 1, 1);
+  glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }

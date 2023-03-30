@@ -6,7 +6,7 @@
 #include <vector>
 #include "particle.h"
 class ParticleFrameBuffer//TODO only store needed frames on gpu to save mem
-{
+{//TODO possibly rename to avoid confusion with the concept of an opengl framebuffer
   public:
     ParticleFrameBuffer(size_t _particleCount);
     ParticleFrameBuffer(const std::vector<Particle> &_data);

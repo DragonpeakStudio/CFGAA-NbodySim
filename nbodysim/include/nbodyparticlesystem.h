@@ -22,7 +22,7 @@ class NBodyParticleSystem
 
   private:
     void eraseAfterFrame(size_t _frame);
-    void processNextFrame();
+    void processNextFrame(float _delta);
     std::vector<ParticleFrameBuffer> m_particleBuffers;
     std::string m_updateProcess; 
 };
