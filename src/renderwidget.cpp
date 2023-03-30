@@ -52,13 +52,13 @@ void RenderWidget::initializeGL()
   std::uniform_real_distribution<float> pos(-30,30);
   std::uniform_real_distribution<float> col(0,1);
   std::uniform_real_distribution<float> vel(-1.,1.);
-  std::uniform_real_distribution<float> rad(.2,1);
+  std::uniform_real_distribution<float> rad(.8,1);
 
   std::vector<Particle> particles;
-  for(int i = 0; i <10000; i++)
+  for(int i = 0; i <20000; i++)
   {
-    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd), pos(rnd), 1.)-ngl::Vec3(40,0,0), ngl::Vec3(0, 1, 0), rad(rnd), ngl::Vec3(col(rnd), col(rnd), col(rnd)), 1.});
-    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd), pos(rnd), 1.)+ngl::Vec3(40,0,0), ngl::Vec3(0, -1, 0), rad(rnd), ngl::Vec3(col(rnd), col(rnd), col(rnd)), 1.});
+    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd), pos(rnd), 1.)-ngl::Vec3(80,0,0), ngl::Vec3(3, -1., 0), rad(rnd), ngl::Vec3(col(rnd), col(rnd), col(rnd)), 1.});
+    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd), pos(rnd), 1.)+ngl::Vec3(80,30,0), ngl::Vec3(-3, -1., 0), rad(rnd), ngl::Vec3(col(rnd), col(rnd), col(rnd)), 1.});
   }
   m_particleSystem->addToFrame(0, particles);
   //END TEST
