@@ -22,6 +22,8 @@ class RenderWidget : public QOpenGLWidget
     virtual void paintGL() override;
     virtual void resizeGL(int w, int h) override;
 
+    NBodyParticleSystem *particleSystem() const;
+
   public slots:
     void setFrame(int _newFrame);
     void setFps(int _newFps);
@@ -33,9 +35,9 @@ class RenderWidget : public QOpenGLWidget
     virtual void mouseMoveEvent(QMouseEvent *_event) override;
     virtual void mousePressEvent(QMouseEvent *_event) override;
     virtual void wheelEvent(QWheelEvent *_event) override;
-    const float m_panScale = .008f;
+    const float m_panScale = .08f;
     const float m_orbitScale = .3f;
-    const float m_zoomScale = .008f;
+    const float m_zoomScale = .08f;
 
 
     Camera m_camera;

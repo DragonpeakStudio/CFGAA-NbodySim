@@ -3,6 +3,8 @@
 
 #pragma once
 #include <GL/gl3w.h>
+#include <string>
+#include <sstream>
 #include <vector>
 #include "particle.h"
 class ParticleFrameBuffer
@@ -22,6 +24,10 @@ class ParticleFrameBuffer
 
     size_t particleCount() const;
     void addParticles(const std::vector<Particle> &_particles);
+
+    void getFromGpu();
+
+    void serialize(std::ostream &_stream);
 
   private:
     void generateSSBO();

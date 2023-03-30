@@ -64,6 +64,10 @@ void RenderWidget::initializeGL()
   m_particleSystem->addToFrame(0, particles);
   //END TEST
 }
+NBodyParticleSystem *RenderWidget::particleSystem() const
+{
+  return m_particleSystem.get();
+}
 void RenderWidget::paintGL()
 {
   glViewport(0,0, size().width(), size().height());

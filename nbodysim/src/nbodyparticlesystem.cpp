@@ -59,6 +59,14 @@ void NBodyParticleSystem::eraseAfterFrame(size_t _frame)
     m_particleBuffers.pop_back();
   }
 }
+void NBodyParticleSystem::serialize(std::ostream &_stream)
+{
+  _stream << m_particleBuffers.size() << "\n"; 
+  for(auto &i : m_particleBuffers)
+  {
+    i.serialize(_stream);
+  }
+}
 void NBodyParticleSystem::processNextFrame(float _delta)
 {
   if(!m_particleBuffers.back().ssbo())m_particleBuffers.back().loadToGpu();

@@ -42,11 +42,7 @@ void ParticleFrameBuffer::unloadFromGpu()
 {
   if(m_ssbo != 0)
   {
-    GLint size = 0;
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_ssbo);
-    glGetBufferParameteriv(GL_SHADER_STORAGE_BUFFER, GL_BUFFER_SIZE, &size);
-    m_particles.reserve(size/sizeof(Particle));
-    glGetBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, size, m_particles.data());
+    getFromGpu();
     glDeleteBuffers(1, &m_ssbo);
     m_ssbo=0;
   }
@@ -64,6 +60,33 @@ void ParticleFrameBuffer::addParticles(const std::vector<Particle> &_particles)
   m_particles.insert(std::end(m_particles), std::begin(_particles), std::end(_particles));
   generateSSBO();
   
+}
+
+void ParticleFrameBuffer::getFromGpu()
+{
+  GLint size = 0;
+  glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_ssbo);
+  glGetBufferParameteriv(GL_SHADER_STORAGE_BUFFER, GL_BUFFER_SIZE, &size);
+  m_particles.reserve(size/sizeof(Particle));
+  glGetBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, size, m_particles.data());
+  glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+}
+
+void ParticleFrameBuffer::serialize(std::ostream &_stream)
+{
+  getFromGpu();
+  _stream << m_particles.size() << "\n{\n";
+  for(const auto &i : m_particles)
+  {
+    _stream << i.m_position.m_x << "," << i.m_position.m_y << "," << i.m_position.m_z << "," << i.m_position.m_w << ":";
+    _stream << i.m_velocity.m_x << "," << i.m_velocity.m_y << "," << i.m_velocity.m_z << ":";
+    _stream << i.m_velocity.m_x << "," << i.m_velocity.m_y << "," << i.m_velocity.m_z << ":";
+    _stream << i.m_radius << ":";
+    _stream << i.m_colour.m_x << "," << i.m_colour.m_y << "," << i.m_colour.m_z << ":";
+    _stream << i.m_mass;
+    _stream << "\n";
+  }
+  _stream << "\n}\n";
 }
 
 void ParticleFrameBuffer::generateSSBO()
