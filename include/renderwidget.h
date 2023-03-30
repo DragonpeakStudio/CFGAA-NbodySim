@@ -21,6 +21,9 @@ class RenderWidget : public QOpenGLWidget
     virtual void initializeGL() override;
     virtual void paintGL() override;
     virtual void resizeGL(int w, int h) override;
+
+  public slots:
+    void setFrame(int _newFrame);
     
   private:
     std::unique_ptr<ParticleRenderer> m_particleRenderer;
