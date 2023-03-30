@@ -5,8 +5,8 @@ struct Particle
 {
   vec4 position;
   vec3 velocity;
-  vec3 colour;
   float radius;
+  vec3 colour;
   float mass;
 };
 
