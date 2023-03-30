@@ -16,9 +16,12 @@ include_directories("${Qt6Widgets_INCLUDE_DIRS}")
 
 add_subdirectory(nbodysim)
 
-add_executable(NBodyUI src/main.cpp src/appwindow.cpp include/appwindow.h src/controlbar.cpp include/controlbar.h src/renderwidget.cpp include/renderwidget.h include/frameslider.h src/frameslider.cpp)
+add_executable(NBodyUI src/main.cpp src/appwindow.cpp include/appwindow.h src/controlbar.cpp include/controlbar.h src/renderwidget.cpp include/renderwidget.h include/frameslider.h src/frameslider.cpp include/camera.h)
 
 
 target_link_libraries(NBodyUI PRIVATE NBodyParticleSim)
 
 target_link_libraries(NBodyUI PRIVATE NGL Qt::Widgets Qt::OpenGL Qt6::OpenGLWidgets)
+add_custom_command(TARGET NBodyUI PRE_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:NBodyUI>)
