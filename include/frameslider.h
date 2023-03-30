@@ -7,6 +7,8 @@
 #include <QSlider>
 #include <QHBoxLayout>
 #include <QSpinBox>
+#include <QTimer>
+#include <QPushButton>
 
 class FrameSlider : public QWidget
 {
@@ -19,7 +21,6 @@ class FrameSlider : public QWidget
     void setFrame(int _frame);
     void setEnd(int _end);
     void setFps(int _fps);
-
   signals:
     void frameChanged(int _newFrame);
     void endFrameChanged(int _newEndFrame);
@@ -29,9 +30,13 @@ class FrameSlider : public QWidget
     QSpinBox *m_frameEnd;
     QSpinBox *m_frameNum;
     QSpinBox *m_fps;
-
-
-
+    QTimer *m_playbackTimer;
+    QPushButton *m_toStart;
+    QPushButton *m_rewind;
+    QPushButton *m_pause;
+    QPushButton *m_play;
+    QPushButton *m_toEnd;;
+    int m_frameAdvance = 0;
 };
 
 #endif
