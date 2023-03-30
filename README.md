@@ -4,7 +4,7 @@ email: s5408935@bournemouth.ac.uk
 
 ## Overview
 A GPU accelerated N-Body particle system for simulating gravitational effects, such as planet formation or asteroid collision. 
-The program will use OpenGL for compute shader based processing and particle rendering as well as QT6 for the user interface.
+The program uses OpenGL, via NGL, for compute shader based processing and particle rendering as well as QT6 for the user interface.
 As a basis for implementing the N-Body algorithm I will be using: https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-31-fast-n-body-simulation-cuda
 Although I will be using GLSL compute shaders not CUDA the same algorithm can be implemented.
 ## Design
