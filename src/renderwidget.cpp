@@ -49,20 +49,20 @@ void RenderWidget::initializeGL()
   m_camera.m_pos = ngl::Vec3(2,2,2);
   //PARTICLE TEST
   std::mt19937 rnd(std::random_device{}());
-  std::uniform_real_distribution<float> pos(-100,100);
+  std::uniform_real_distribution<float> pos(-30,30);
   std::uniform_real_distribution<float> col(0,1);
   std::uniform_real_distribution<float> vel(-1.,1.);
   std::uniform_real_distribution<float> rad(.2,1);
 
   std::vector<Particle> particles;
-  for(int i = 0; i <20000; i++)
+  for(int i = 0; i <10000; i++)
   {
-    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd), pos(rnd), 1.), ngl::Vec3(vel(rnd),vel(rnd),vel(rnd)), rad(rnd), ngl::Vec3(col(rnd), col(rnd), col(rnd)), 1.});
+    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd), pos(rnd), 1.)-ngl::Vec3(40,0,0), ngl::Vec3(0, 1, 0), rad(rnd), ngl::Vec3(col(rnd), col(rnd), col(rnd)), 1.});
+    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd), pos(rnd), 1.)+ngl::Vec3(40,0,0), ngl::Vec3(0, -1, 0), rad(rnd), ngl::Vec3(col(rnd), col(rnd), col(rnd)), 1.});
   }
   m_particleSystem->addToFrame(0, particles);
   //END TEST
 }
-
 void RenderWidget::paintGL()
 {
   glViewport(0,0, size().width(), size().height());
@@ -70,6 +70,7 @@ void RenderWidget::paintGL()
   m_particleRenderer->drawParticles(m_particleSystem->getFrame(m_currentFrame), m_camera.projMat((float)size().width()/(float)size().height())*m_camera.viewMat());
   //update();//Forces constant updates to allow easier debugging from nsight
 }
+
 void RenderWidget::resizeGL(int w, int h)
 {
 }

@@ -20,6 +20,9 @@ layout(std430, binding = 1) buffer particlesOut {
 };
 uniform float delta;
 uniform float gravConst = 6.674*pow(10, -2.);//physical is 6.674*10^-11 but this is to small to work accurately so use a higher value
+uniform float springCoeff = 7.;
+uniform float dampCoeff = .1;
+
 
 void main()
 {
@@ -29,13 +32,23 @@ void main()
   {
     if(i != gl_GlobalInvocationID.x)
     {
-      //using faster gravity equation from https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-31-fast-n-body-simulation-cuda
+
       vec3 vec = particleIn[i].position.xyz-p.position.xyz;
-      sum += (particleIn[i].mass*vec)/pow(length(vec), 3);//Pretty sure a sqrt is unavoidable it's either here or in a normalize(vec)
-      //TODO collision
+      float dist2 = dot(vec,vec);
+      float dist = sqrt(dist2);
+      vec3 nvec = vec/dist;
+      if(dist < p.radius+particleIn[i].radius)
+      {//collision based on https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-29-real-time-rigid-body-simulation-gpus
+        vec3 repusiveForce = nvec*(-springCoeff*(p.radius*2-dist));
+        vec3 dampeningForce = (particleIn[i].velocity-p.velocity)*dampCoeff;
+        sum+=repusiveForce+dampeningForce;
+      }
+      else
+      {
+        sum += nvec*gravConst*((particleIn[i].mass*p.mass)/dist2);
+      }
     }
   }
-  sum *= gravConst*p.mass;
   p.velocity += sum*delta;
   p.position.xyz += p.velocity*delta;
 
