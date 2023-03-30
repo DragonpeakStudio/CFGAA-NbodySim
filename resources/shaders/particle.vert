@@ -17,6 +17,7 @@ layout(std430, binding = 0) buffer particles {
 };
 
 out vec3 colour;
+out vec3 normal;
 
 uniform mat4 viewProj;
 
@@ -24,4 +25,5 @@ void main()
 {
   gl_Position = viewProj*vec4(pos*particle[gl_InstanceID].radius+particle[gl_InstanceID].position.xyz, 1.);
   colour = particle[gl_InstanceID].colour;
+  normal = nrm;
 }
