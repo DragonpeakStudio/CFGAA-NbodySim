@@ -47,7 +47,7 @@ void RenderWidget::initializeGL()
   m_particleSystem = std::make_unique<NBodyParticleSystem>(updateProcessShader);
 
   m_camera.m_pos = ngl::Vec3(2,2,2);
-  m_particleSystem->addToFrame(0, std::vector<Particle>{Particle{ngl::Vec4(0,0,0,1), ngl::Vec3(0,0,0), 1, ngl::Vec3(1.,.5,.5),1},Particle{ngl::Vec4(1,0,0,1), ngl::Vec3(0,0,0), 1, ngl::Vec3(0.,1.,.5),1}});
+  m_particleSystem->addToFrame(0, std::vector<Particle>{Particle{ngl::Vec4(0,0,0,1), ngl::Vec3(0,0,0), .4, ngl::Vec3(1.,.5,.5),1},Particle{ngl::Vec4(1,0,0,1), ngl::Vec3(0,0,0), 1, ngl::Vec3(0.,1.,.5),1}});
 }
 
 void RenderWidget::paintGL()
@@ -55,7 +55,7 @@ void RenderWidget::paintGL()
   glViewport(0,0, size().width(), size().height());
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   m_particleRenderer->drawParticles(m_particleSystem->getFrame(0), m_camera.projMat((float)size().width()/(float)size().height())*m_camera.viewMat());
-  update();//TEMP,
+  //update();//Forces constant updates to allow easier debugging from nsight
 }
 void RenderWidget::resizeGL(int w, int h)
 {
@@ -74,7 +74,7 @@ void RenderWidget::mouseMoveEvent(QMouseEvent *_event)
   }
   else
   {
-    m_camera.orbit(ngl::Vec2(diff.x(), diff.y())*m_orbitScale);
+    m_camera.orbit(ngl::Vec2(-diff.x(), diff.y())*m_orbitScale);
   }
   
   update();
