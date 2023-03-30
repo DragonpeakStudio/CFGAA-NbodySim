@@ -25,6 +25,7 @@ class RenderWidget : public QOpenGLWidget
   public slots:
     void setFrame(int _newFrame);
     void setFps(int _newFps);
+    void resetSim();
     
   private:
     std::unique_ptr<ParticleRenderer> m_particleRenderer;

@@ -44,6 +44,7 @@ void AppWindow::setupUI()
   setCentralWidget(m_renderWidget);
   connect((FrameSlider*)m_frameSlider->widget(), &FrameSlider::frameChanged, m_renderWidget, &RenderWidget::setFrame);
   connect((FrameSlider*)m_frameSlider->widget(), &FrameSlider::fpsChanged, m_renderWidget, &RenderWidget::setFps);
+  connect((ControlBar*)m_controlBar->widget(), &ControlBar::resetPress, m_renderWidget, &RenderWidget::resetSim);
 
 
 

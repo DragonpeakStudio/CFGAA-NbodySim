@@ -57,8 +57,8 @@ void RenderWidget::initializeGL()
   std::vector<Particle> particles;
   for(int i = 0; i <1024*10; i++) 
   {
-    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd)+30, pos(rnd), 1.), ngl::Vec3(-3,0,0), rad(rnd), ngl::Vec3(col(rnd), col(rnd), col(rnd)), 1.});
-    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd)-30, pos(rnd), 1.), ngl::Vec3(3,0,0), rad(rnd), ngl::Vec3(col(rnd), col(rnd), col(rnd)), 1.});
+    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd)+40, pos(rnd), 1.), ngl::Vec3(-1.7,0,0), rad(rnd), ngl::Vec3(.6,0,0)+ngl::Vec3(col(rnd), col(rnd), col(rnd))*.3, 1.});
+    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd)-40, pos(rnd), 1.), ngl::Vec3(1.7,0,0), rad(rnd), ngl::Vec3(0,0,.6)+ngl::Vec3(col(rnd), col(rnd), col(rnd))*.3, 1.});
 
   }
   m_particleSystem->addToFrame(0, particles);
@@ -79,6 +79,11 @@ void RenderWidget::setFps(int _newFps)
 {
   m_fps = _newFps;//TODO figure out how this should affect existing frames
   update();
+}
+void RenderWidget::resetSim()
+{
+  m_particleSystem->eraseAfterFrame(0);
+  m_particleSystem->clearFrame(0);
 }
 void RenderWidget::mouseMoveEvent(QMouseEvent *_event)
 {
