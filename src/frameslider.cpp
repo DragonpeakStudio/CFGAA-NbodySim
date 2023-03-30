@@ -34,13 +34,13 @@ FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)//TODO better layou
   connect(m_toEnd, &QPushButton::pressed, [this](){m_playbackTimer->stop();setFrame(m_frameEnd->value());});
   layout()->addWidget(m_toEnd);
 
-
   m_slider = new QSlider(Qt::Orientation::Horizontal, this);
   m_slider->setMinimum(0);
   m_slider->setMaximum(240);
   m_slider->setTickPosition(QSlider::TicksBelow);
   m_slider->setTickInterval(1);
   layout()->addWidget(m_slider);
+
 
   m_frameEnd = new QSpinBox(this);
   m_frameEnd->setMaximum(9999999);

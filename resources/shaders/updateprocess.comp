@@ -20,8 +20,8 @@ layout(std430, binding = 1) buffer particlesOut {
 };
 uniform float delta;
 uniform float gravConst = 6.674*pow(10, -2.);//physical is 6.674*10^-11 but this is to small to work accurately so use a higher value
-uniform float springCoeff = 7.;
-uniform float dampCoeff = .1;
+uniform float springCoeff = 10.;
+uniform float dampCoeff = .08;
 
 
 void main()
@@ -43,10 +43,8 @@ void main()
         vec3 dampeningForce = (particleIn[i].velocity-p.velocity)*dampCoeff;
         sum+=repusiveForce+dampeningForce;
       }
-      else
-      {
-        sum += nvec*gravConst*((particleIn[i].mass*p.mass)/dist2);
-      }
+      sum += nvec*gravConst*((particleIn[i].mass*p.mass)/dist2);
+      
     }
   }
   p.velocity += sum*delta;
