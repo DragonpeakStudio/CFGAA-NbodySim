@@ -18,16 +18,17 @@ class FrameSlider : public QWidget
   public slots:
     void setFrame(int _frame);
     void setEnd(int _end);
+    void setFps(int _fps);
 
   signals:
     void frameChanged(int _newFrame);
     void endFrameChanged(int _newEndFrame);
-
-
+    void fpsChanged(int _newFps);
   private:
     QSlider *m_slider;
     QSpinBox *m_frameEnd;
     QSpinBox *m_frameNum;
+    QSpinBox *m_fps;
 
 
 

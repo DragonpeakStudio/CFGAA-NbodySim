@@ -24,6 +24,7 @@ class RenderWidget : public QOpenGLWidget
 
   public slots:
     void setFrame(int _newFrame);
+    void setFps(int _newFps);
     
   private:
     std::unique_ptr<ParticleRenderer> m_particleRenderer;
@@ -39,6 +40,7 @@ class RenderWidget : public QOpenGLWidget
     Camera m_camera;
     QPointF m_lastMousePos;
     int m_currentFrame = 0;
+    int m_fps = 24;
 };
 
 #endif

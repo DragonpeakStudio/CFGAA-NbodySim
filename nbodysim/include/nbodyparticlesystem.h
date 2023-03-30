@@ -19,9 +19,10 @@ class NBodyParticleSystem
     void clearFrame(size_t _frame);
     void addToFrame(size_t _frame, const std::vector<Particle> &_particles);
     const ParticleFrameBuffer &getFrame(size_t _frame) const;
+    void eraseAfterFrame(size_t _frame);
+
 
   private:
-    void eraseAfterFrame(size_t _frame);
     void processNextFrame(float _delta);
     std::vector<ParticleFrameBuffer> m_particleBuffers;
     std::string m_updateProcess; 

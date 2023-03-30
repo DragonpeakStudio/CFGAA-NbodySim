@@ -43,6 +43,8 @@ void AppWindow::setupUI()
   m_renderWidget = new RenderWidget();
   setCentralWidget(m_renderWidget);
   connect((FrameSlider*)m_frameSlider->widget(), &FrameSlider::frameChanged, m_renderWidget, &RenderWidget::setFrame);
+  connect((FrameSlider*)m_frameSlider->widget(), &FrameSlider::fpsChanged, m_renderWidget, &RenderWidget::setFps);
+
 
 
 }

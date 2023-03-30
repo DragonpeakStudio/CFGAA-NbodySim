@@ -72,6 +72,11 @@ void RenderWidget::paintGL()
 void RenderWidget::resizeGL(int w, int h)
 {
 }
+void RenderWidget::setFps(int _newFps)
+{
+  m_fps = _newFps;//TODO figure out how this should affect existing frames
+  update();
+}
 void RenderWidget::mouseMoveEvent(QMouseEvent *_event)
 {
   auto pos = _event->position();
@@ -106,6 +111,6 @@ void RenderWidget::wheelEvent(QWheelEvent *_event)
 void RenderWidget::setFrame(int _newFrame)
 {
   m_currentFrame = _newFrame;
-  m_particleSystem->processToFrame(m_currentFrame, 1./24.);//TODO support getting delta from FPS
+  m_particleSystem->processToFrame(m_currentFrame, 1./m_fps);
   update();
 }

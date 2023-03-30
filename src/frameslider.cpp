@@ -9,6 +9,10 @@ FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)
   m_frameNum->setMaximum(240);
   layout()->addWidget(m_frameNum);
 
+  m_fps = new QSpinBox(this);
+  m_fps->setValue(24);
+  layout()->addWidget(m_fps);
+
   m_slider = new QSlider(Qt::Orientation::Horizontal, this);
   m_slider->setMinimum(0);
   m_slider->setMaximum(240);
@@ -20,11 +24,12 @@ FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)
   m_frameEnd->setMaximum(9999999);
   m_frameEnd->setValue(240);
   layout()->addWidget(m_frameEnd);
+  
 
   connect(m_frameEnd, &QSpinBox::valueChanged, this, &FrameSlider::setEnd);
-
   connect(m_frameNum, &QSpinBox::valueChanged, this, &FrameSlider::setFrame);
   connect(m_slider, &QSlider::valueChanged, this, &FrameSlider::setFrame);
+  connect(m_fps, &QSpinBox::valueChanged, this, &FrameSlider::setFps);
 
 }
 
@@ -45,4 +50,10 @@ void FrameSlider::setEnd(int _end)
   m_slider->setMaximum(_end);
   emit endFrameChanged(_end);
 
+}
+
+void FrameSlider::setFps(int _fps)
+{
+  m_fps->setValue(_fps);
+  emit fpsChanged(_fps);
 }
