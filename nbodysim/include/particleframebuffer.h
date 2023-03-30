@@ -5,7 +5,7 @@
 #include <GL/gl3w.h>
 #include <vector>
 #include "particle.h"
-class ParticleFrameBuffer//TODO only store needed frames on gpu to save mem
+class ParticleFrameBuffer
 {//TODO possibly rename to avoid confusion with the concept of an opengl framebuffer
   public:
     ParticleFrameBuffer(size_t _particleCount);
@@ -17,6 +17,8 @@ class ParticleFrameBuffer//TODO only store needed frames on gpu to save mem
     ~ParticleFrameBuffer();
 
     GLuint ssbo() const;
+    void loadToGpu();
+    void unloadFromGpu();
 
     size_t particleCount() const;
     void addParticles(const std::vector<Particle> &_particles);

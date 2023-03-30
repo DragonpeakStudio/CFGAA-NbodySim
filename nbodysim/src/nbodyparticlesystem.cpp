@@ -32,11 +32,23 @@ void NBodyParticleSystem::addToFrame(size_t _frame, const std::vector<Particle> 
   eraseAfterFrame(_frame);
   m_particleBuffers[_frame].addParticles(_particles);
 }
-const ParticleFrameBuffer &NBodyParticleSystem::getFrame(size_t _frame) const
+const ParticleFrameBuffer &NBodyParticleSystem::getFrame(size_t _frame)
 {
+  if(_frame >= 1)
+  {
+    m_particleBuffers[_frame-1].unloadFromGpu();
+  }
   if(_frame < m_particleBuffers.size())
   {
+    if(!m_particleBuffers[_frame].ssbo())
+    {
+      m_particleBuffers[_frame].loadToGpu();
+    }
     return m_particleBuffers[_frame];
+  }
+  if(!m_particleBuffers.back().ssbo())
+  {
+    m_particleBuffers.back().loadToGpu();
   }
   return m_particleBuffers.back();
 }
@@ -49,6 +61,7 @@ void NBodyParticleSystem::eraseAfterFrame(size_t _frame)
 }
 void NBodyParticleSystem::processNextFrame(float _delta)
 {
+  if(!m_particleBuffers.back().ssbo())m_particleBuffers.back().loadToGpu();
   auto lastSsbo = m_particleBuffers.back().ssbo();
   auto lastSize = m_particleBuffers.back().particleCount();
   m_particleBuffers.emplace_back(lastSize);
@@ -60,4 +73,5 @@ void NBodyParticleSystem::processNextFrame(float _delta)
   glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1,m_particleBuffers.back().ssbo());
   glDispatchCompute(m_particleBuffers.back().particleCount()/128, 1, 1);
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+  m_particleBuffers[m_particleBuffers.size()-2].unloadFromGpu();
 }
