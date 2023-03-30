@@ -51,7 +51,7 @@ void RenderWidget::initializeGL()
   std::mt19937 rnd(std::random_device{}());
   std::uniform_real_distribution<float> pos(-100,100);
   std::uniform_real_distribution<float> col(0,1);
-  std::uniform_real_distribution<float> vel(0,1);
+  std::uniform_real_distribution<float> vel(-1,1);
   std::uniform_real_distribution<float> rad(.2,1);
 
   std::vector<Particle> particles;
@@ -62,7 +62,6 @@ void RenderWidget::initializeGL()
   m_particleSystem->addToFrame(0, particles);
   //END TEST
 }
-
 void RenderWidget::paintGL()
 {
   glViewport(0,0, size().width(), size().height());
