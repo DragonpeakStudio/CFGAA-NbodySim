@@ -41,9 +41,14 @@ void AppWindow::setupUI()
     d.setOption(QFileDialog::DontUseNativeDialog,true);
     if(QDialog::Accepted == d.exec())
     {
+      QMessageBox message(QMessageBox::Icon::Information, "Saving...", "Saving...");
+      message.show();
+      
       std::ofstream out(d.selectedFiles()[0].toStdString());
       m_renderWidget->particleSystem()->serialize(out);
       out.close();
+
+      message.close();
     }
   });
   m_fileMenu->addAction("Open", [this]()
@@ -54,9 +59,15 @@ void AppWindow::setupUI()
     d.setOption(QFileDialog::DontUseNativeDialog,true);
     if(QDialog::Accepted == d.exec())
     {
+      QMessageBox message(QMessageBox::Icon::Information, "Loading...", "Loading...");
+      message.show();
+
       std::ifstream in(d.selectedFiles()[0].toStdString());
       m_renderWidget->particleSystem()->deserialize(in);
       in.close();
+
+      message.close();
+
     }
     m_renderWidget->update();
   });

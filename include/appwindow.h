@@ -9,6 +9,7 @@
 #include <QDockWidget>
 #include <QFileDialog>
 #include <fstream>
+#include <QMessageBox>
 #include "controlbar.h"
 #include "renderwidget.h"
 #include "frameslider.h"

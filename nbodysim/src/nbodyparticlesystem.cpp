@@ -70,7 +70,6 @@ void NBodyParticleSystem::serialize(std::ostream &_stream)
 void NBodyParticleSystem::deserialize(std::istream &_stream)
 {
   int size = 0;
-  _stream >> size;
   _stream.ignore(1, '\n');
   m_particleBuffers.clear();
   m_particleBuffers.reserve(size);
