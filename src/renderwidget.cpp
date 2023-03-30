@@ -49,16 +49,17 @@ void RenderWidget::initializeGL()
   m_camera.m_pos = ngl::Vec3(2,2,2);
   //PARTICLE TEST
   std::mt19937 rnd(std::random_device{}());
-  std::uniform_real_distribution<float> pos(-30,30);
+  std::uniform_real_distribution<float> pos(-25,25);
   std::uniform_real_distribution<float> col(0,1);
   std::uniform_real_distribution<float> vel(-1.,1.);
   std::uniform_real_distribution<float> rad(.8,1);
 
   std::vector<Particle> particles;
-  for(int i = 0; i <20000; i++)
+  for(int i = 0; i <20000; i++) 
   {
-    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd), pos(rnd), 1.)-ngl::Vec3(80,0,0), ngl::Vec3(3, -1., 0), rad(rnd), ngl::Vec3(col(rnd), col(rnd), col(rnd)), 1.});
-    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd), pos(rnd), 1.)+ngl::Vec3(80,30,0), ngl::Vec3(-3, -1., 0), rad(rnd), ngl::Vec3(col(rnd), col(rnd), col(rnd)), 1.});
+    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd), pos(rnd), 1.)-ngl::Vec3(80,0,0), ngl::Vec3(5, -1., 0), rad(rnd), ngl::Vec3(col(rnd), col(rnd), col(rnd)), 1.});
+    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd), pos(rnd), 1.)+ngl::Vec3(80,30,0), ngl::Vec3(-5, -1., 0), rad(rnd), ngl::Vec3(col(rnd), col(rnd), col(rnd)), 1.});
+    particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd), pos(rnd), 1.)+ngl::Vec3(0,3000,0), ngl::Vec3(0, -100., 0), rad(rnd), ngl::Vec3(col(rnd), col(rnd), col(rnd)), 1.});
   }
   m_particleSystem->addToFrame(0, particles);
   //END TEST
