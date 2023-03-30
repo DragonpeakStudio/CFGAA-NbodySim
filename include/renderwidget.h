@@ -38,6 +38,7 @@ class RenderWidget : public QOpenGLWidget
 
     Camera m_camera;
     QPointF m_lastMousePos;
+    int m_currentFrame = 0;
 };
 
 #endif

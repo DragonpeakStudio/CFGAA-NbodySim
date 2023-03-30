@@ -67,7 +67,7 @@ void RenderWidget::paintGL()
 {
   glViewport(0,0, size().width(), size().height());
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  m_particleRenderer->drawParticles(m_particleSystem->getFrame(0), m_camera.projMat((float)size().width()/(float)size().height())*m_camera.viewMat());
+  m_particleRenderer->drawParticles(m_particleSystem->getFrame(m_currentFrame), m_camera.projMat((float)size().width()/(float)size().height())*m_camera.viewMat());
   //update();//Forces constant updates to allow easier debugging from nsight
 }
 void RenderWidget::resizeGL(int w, int h)
@@ -106,5 +106,7 @@ void RenderWidget::wheelEvent(QWheelEvent *_event)
 }
 void RenderWidget::setFrame(int _newFrame)
 {
-  std::cerr << "set frame to: " << _newFrame << std::endl;
+  m_currentFrame = _newFrame;
+  m_particleSystem->processToFrame(m_currentFrame, 1./24.);//TODO support getting delta from FPS
+  update();
 }
