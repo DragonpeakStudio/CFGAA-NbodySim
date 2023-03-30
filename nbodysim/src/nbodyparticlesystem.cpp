@@ -58,6 +58,6 @@ void NBodyParticleSystem::processNextFrame(float _delta)
   glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0,lastSsbo);
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_particleBuffers.back().ssbo());
   glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1,m_particleBuffers.back().ssbo());
-  glDispatchCompute(m_particleBuffers.back().particleCount()/100, 1, 1);
+  glDispatchCompute(m_particleBuffers.back().particleCount()/128, 1, 1);
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
