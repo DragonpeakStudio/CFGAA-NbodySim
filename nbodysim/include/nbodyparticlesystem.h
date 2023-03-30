@@ -22,6 +22,7 @@ class NBodyParticleSystem
     void eraseAfterFrame(size_t _frame);
 
     void serialize(std::ostream &_stream);
+    void deserialize(std::istream &_stream);
 
   private:
     void processNextFrame(float _delta);

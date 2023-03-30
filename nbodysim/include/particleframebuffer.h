@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <iostream>
 #include "particle.h"
 class ParticleFrameBuffer
 {//TODO possibly rename to avoid confusion with the concept of an opengl framebuffer
@@ -28,6 +29,8 @@ class ParticleFrameBuffer
     void getFromGpu();
 
     void serialize(std::ostream &_stream);
+    void deserialize(std::istream &_stream);
+
 
   private:
     void generateSSBO();

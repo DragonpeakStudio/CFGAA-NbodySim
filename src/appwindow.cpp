@@ -46,7 +46,20 @@ void AppWindow::setupUI()
       out.close();
     }
   });
-  m_fileMenu->addAction("Open");//TODO implement
+  m_fileMenu->addAction("Open", [this]()
+  {
+    QFileDialog d = QFileDialog(this, "Load Simulation");
+    d.setAcceptMode(QFileDialog::AcceptOpen);
+    d.setFileMode(QFileDialog::FileMode::ExistingFile);
+    d.setOption(QFileDialog::DontUseNativeDialog,true);
+    if(QDialog::Accepted == d.exec())
+    {
+      std::ifstream in(d.selectedFiles()[0].toStdString());
+      m_renderWidget->particleSystem()->deserialize(in);
+      in.close();
+    }
+    m_renderWidget->update();
+  });
   m_fileMenu->addAction("Export .geo");//TODO implement
 
   m_renderWidget = new RenderWidget();

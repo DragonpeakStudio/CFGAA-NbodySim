@@ -67,6 +67,20 @@ void NBodyParticleSystem::serialize(std::ostream &_stream)
     i.serialize(_stream);
   }
 }
+void NBodyParticleSystem::deserialize(std::istream &_stream)
+{
+  int size = 0;
+  _stream >> size;
+  _stream.ignore(1, '\n');
+  m_particleBuffers.clear();
+  m_particleBuffers.reserve(size);
+  std::cerr << size << std::endl; 
+  while(_stream.peek() != EOF)
+  {
+    m_particleBuffers.emplace_back(0);
+    m_particleBuffers.back().deserialize(_stream);
+  }
+}
 void NBodyParticleSystem::processNextFrame(float _delta)
 {
   if(!m_particleBuffers.back().ssbo())m_particleBuffers.back().loadToGpu();

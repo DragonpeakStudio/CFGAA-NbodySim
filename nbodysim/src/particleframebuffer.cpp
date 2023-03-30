@@ -80,13 +80,34 @@ void ParticleFrameBuffer::serialize(std::ostream &_stream)
   {
     _stream << i.m_position.m_x << "," << i.m_position.m_y << "," << i.m_position.m_z << "," << i.m_position.m_w << ":";
     _stream << i.m_velocity.m_x << "," << i.m_velocity.m_y << "," << i.m_velocity.m_z << ":";
-    _stream << i.m_velocity.m_x << "," << i.m_velocity.m_y << "," << i.m_velocity.m_z << ":";
     _stream << i.m_radius << ":";
     _stream << i.m_colour.m_x << "," << i.m_colour.m_y << "," << i.m_colour.m_z << ":";
     _stream << i.m_mass;
     _stream << "\n";
   }
   _stream << "\n}\n";
+}
+
+void ParticleFrameBuffer::deserialize(std::istream &_stream)
+{
+  int size = 0;
+  _stream >> size;
+  _stream.ignore(4, '{');
+  _stream.ignore(1, '\n');
+  std::string line;
+  m_particles.clear();
+  m_particles.reserve(size); 
+  while(_stream.peek()!='}')
+  {
+    m_particles.emplace_back(Particle());
+    std::getline(_stream, line);
+    std::sscanf(line.c_str(), "%f,%f,%f,%f:%f,%f,%f:%f:%f,%f,%f:%f\n", &m_particles.back().m_position.m_x, &m_particles.back().m_position.m_y, &m_particles.back().m_position.m_z, &m_particles.back().m_position.m_w,
+    &m_particles.back().m_velocity.m_x, &m_particles.back().m_velocity.m_y, &m_particles.back().m_velocity.m_z, 
+    &m_particles.back().m_radius,
+    &m_particles.back().m_colour.m_x, &m_particles.back().m_colour.m_y, &m_particles.back().m_colour.m_z,
+    &m_particles.back().m_mass);
+  }
+  _stream.ignore(3, '\n');
 }
 
 void ParticleFrameBuffer::generateSSBO()
