@@ -26,3 +26,40 @@ ControlBar represents the main set of controls available to the user for manipul
 FrameSlider allows the user to adjust the current frame, max frames and fps of the simulation as well as allowing them it initialize playback.
 
 ## Instructions
+### Building
+cd programming-project-Rowan-Cruse-Howse
+mkdir build
+cd build 
+cmake ..
+make
+
+### Running
+./NBodyUI 
+Requires a powerful GPU, Tested on a 2080 Super Max-Q w/ Ubuntu 22.04 & Qt 6.2.
+
+### Usage
+UI is currently incomplete, so below instructions might change.
+File Menu(Top Left):
+Save, saves the simulation to a file. This currently uses a ascii based system and produces very large files, 240 frames of the default sim is ~400mb.
+Hopefully this can be improved.
+
+Load, Loads the files created by the above, currently has some issues, will not properly display until the sim has been played back atlease once and can sometimes create broken particles.
+
+Export .geo, UNIMLEMENTED, will export .geo files for Houdini.
+
+Viewport:
+Hold LMB - Orbit
+Hold LMB + Shift - Pan
+Hold LMB + Ctrl - Zoom
+Mouse Wheel - Zoom
+
+Controls:
+Reset Sim, Clears the simulation to blank, as controls for adding new particles do not yet exist this should probably not be used execept for testing.
+
+Playback:
+Currently no labels, so from left to right:
+Current frame number.
+Frame Rate, effects simulation FPS and playback FPS, might make these seperate controls in the future
+ToStart, Rewind, Pause, Play, ToEnd - playback controls for simulation, note that on a long sim ToEnd might take a while as it has to calc the sim up to that point.
+Frame Slider, Slider to control the current frame
+Frame End, End of the simulation, can increase or reduce to manipulate simulation length.
