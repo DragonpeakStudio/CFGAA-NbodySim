@@ -32,19 +32,19 @@ void main()
   {
     if(i != gl_GlobalInvocationID.x)
     {
-
-      vec3 vec = particleIn[i].position.xyz-p.position.xyz;
+      Particle b = particleIn[i];
+      vec3 vec = b.position.xyz-p.position.xyz;
       float dist2 = dot(vec,vec);
       float dist = sqrt(dist2);
       vec3 nvec = vec/dist;
-      if(dist < p.radius+particleIn[i].radius)
+      if(dist < p.radius+b.radius)
       {//collision based on https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-29-real-time-rigid-body-simulation-gpus
         vec3 repusiveForce = nvec*(-springCoeff*(p.radius*2-dist));
-        vec3 dampeningForce = (particleIn[i].velocity-p.velocity)*dampCoeff;
+        vec3 dampeningForce = (b.velocity-p.velocity)*dampCoeff;
         sum+=repusiveForce+dampeningForce;
-        //p.position.xyz+=nvec*(dist-(p.radius+particleIn[i].radius))/2.;
+        //p.position.xyz+=nvec*(dist-(p.radius+b.radius))/2.;
       }
-      sum += nvec*gravConst*((particleIn[i].mass*p.mass)/dist2);
+      sum += nvec*gravConst*((b.mass*p.mass)/dist2);
       
     }
   }
