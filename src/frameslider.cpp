@@ -47,7 +47,6 @@ FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)//TODO better layou
   m_frameEnd->setMaximum(9999999);
   m_frameEnd->setValue(1920);
   layout()->addWidget(m_frameEnd);
-
   connect(m_frameEnd, &QSpinBox::valueChanged, this, &FrameSlider::setEnd);
   connect(m_frameNum, &QSpinBox::valueChanged, this, &FrameSlider::setFrame);
   connect(m_slider, &QSlider::valueChanged, this, &FrameSlider::setFrame);
@@ -64,7 +63,6 @@ FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)//TODO better layou
     }
   });
 }
-
 FrameSlider::~FrameSlider()
 {
 
