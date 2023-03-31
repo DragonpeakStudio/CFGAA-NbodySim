@@ -2,7 +2,9 @@
 
 RenderWidget::RenderWidget()
 {
-
+  m_deltaAndFps = new QLabel(this);
+  m_deltaAndFps->setStyleSheet("QLabel{color: white}");
+  m_lastFrameTime = std::chrono::high_resolution_clock::now(); 
 }
 
 RenderWidget::~RenderWidget()
@@ -70,10 +72,15 @@ NBodyParticleSystem *RenderWidget::particleSystem() const
 }
 void RenderWidget::paintGL()
 {
+  std::chrono::duration<double> time = std::chrono::high_resolution_clock::now()-m_lastFrameTime;
+  m_lastFrameTime = std::chrono::high_resolution_clock::now();
+  float delta = time.count();
+  m_deltaAndFps->setText("Delta: " + QString::number(delta) + ", FPS: " + QString::number(1./delta));
+
   glViewport(0,0, size().width(), size().height());
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   m_particleRenderer->drawParticles(m_particleSystem->getFrame(m_currentFrame), m_camera.projMat((float)size().width()/(float)size().height())*m_camera.viewMat());
-  update();//Forces constant updates to allow easier debugging from nsight
+  //update();//Forces constant updates to allow easier debugging from nsight
 }
 
 void RenderWidget::resizeGL(int w, int h)
