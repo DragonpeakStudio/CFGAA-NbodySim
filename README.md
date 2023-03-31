@@ -60,6 +60,6 @@ Playback:
 Currently no labels, so from left to right:  
 Current frame number.  
 Frame Rate, effects simulation FPS and playback FPS, might make these seperate controls in the future  
-ToStart, Rewind, Pause, Play, ToEnd - playback controls for simulation, note that on a long sim ToEnd might take a while as it has to calc the sim up to that point.  
+ToStart, Rewind, Pause, Play, ToEnd - playback controls for simulation, note that on a long sim ToEnd might take a while as it has to calc the sim up to that point. Will add proper icons in future.  
 Frame Slider, Slider to control the current frame.  
 Frame End, End of the simulation, can increase or reduce to manipulate simulation length.  
