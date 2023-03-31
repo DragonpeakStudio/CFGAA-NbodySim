@@ -6,11 +6,12 @@ FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)//TODO better layou
 
   m_frameNum = new QSpinBox(this);
   m_frameNum->setValue(0);
-  m_frameNum->setMaximum(240);
+  m_frameNum->setMaximum(1920);
   layout()->addWidget(m_frameNum);
 
   m_fps = new QSpinBox(this);
   m_fps->setValue(24);
+  m_fps->setMaximum(512);
   layout()->addWidget(m_fps);
   m_playbackTimer = new QTimer(this);
 
@@ -36,7 +37,7 @@ FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)//TODO better layou
 
   m_slider = new QSlider(Qt::Orientation::Horizontal, this);
   m_slider->setMinimum(0);
-  m_slider->setMaximum(240);
+  m_slider->setMaximum(1920);
   m_slider->setTickPosition(QSlider::TicksBelow);
   m_slider->setTickInterval(1);
   layout()->addWidget(m_slider);
@@ -44,7 +45,7 @@ FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)//TODO better layou
 
   m_frameEnd = new QSpinBox(this);
   m_frameEnd->setMaximum(9999999);
-  m_frameEnd->setValue(240);
+  m_frameEnd->setValue(1920);
   layout()->addWidget(m_frameEnd);
 
   connect(m_frameEnd, &QSpinBox::valueChanged, this, &FrameSlider::setEnd);
