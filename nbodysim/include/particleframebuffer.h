@@ -36,7 +36,6 @@ class ParticleFrameBuffer
     void generateSSBO();
     GLuint m_ssbo = 0;
     std::vector<Particle> m_particles;
-
 };
 
 #endif

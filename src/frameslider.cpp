@@ -20,7 +20,7 @@ FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)//TODO better layou
   layout()->addWidget(m_toStart);
 
   m_rewind = new QPushButton("Rewind", this);//TODO icons
-  connect(m_rewind, &QPushButton::pressed, [this](){m_frameAdvance = -1; m_playbackTimer->start(1./m_fps->value());});
+  connect(m_rewind, &QPushButton::pressed, [this](){m_frameAdvance = -1; m_playbackTimer->start((1./m_fps->value())*1000);});
   layout()->addWidget(m_rewind);
 
   m_pause = new QPushButton("Pause", this);//TODO icons
@@ -28,7 +28,7 @@ FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)//TODO better layou
   layout()->addWidget(m_pause);
 
   m_play = new QPushButton("Play", this);//TODO icons
-  connect(m_play, &QPushButton::pressed, [this](){m_frameAdvance = 1; m_playbackTimer->start(1./m_fps->value());});
+  connect(m_play, &QPushButton::pressed, [this](){m_frameAdvance = 1; m_playbackTimer->start((1./m_fps->value())*1000);});
   layout()->addWidget(m_play);
 
   m_toEnd = new QPushButton("ToEnd", this);//TODO icons
