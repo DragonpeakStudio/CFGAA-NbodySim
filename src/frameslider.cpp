@@ -67,6 +67,10 @@ FrameSlider::~FrameSlider()
 {
 
 }
+int FrameSlider::getFrame() const
+{
+  return m_frameNum->value();
+}
 void FrameSlider::setFrame(int _frame)
 {
   m_frameNum->setValue(_frame);

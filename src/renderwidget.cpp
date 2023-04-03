@@ -61,11 +61,11 @@ void RenderWidget::initializeGL()
   {
     particles.push_back(Particle{ngl::Vec4(pos(rnd), pos(rnd), pos(rnd), 1.), ngl::Vec3(0,0,0), rad(rnd), ngl::Vec3(.6,0,0)+ngl::Vec3(col(rnd), col(rnd), col(rnd))*.3, 3.});
   }
-  for(int i = 0; i <1024*1; i++) 
+  for(int i = 0; i <1024*2; i++) 
   {
     particles.push_back(Particle{ngl::Vec4(pos(rnd)*.8+1000, pos(rnd)*.8, pos(rnd)*.8, 1.), ngl::Vec3(-80,0,0), rad(rnd), ngl::Vec3(0,0,.6)+ngl::Vec3(col(rnd), col(rnd), col(rnd))*.3, 4.});
   }
-  for(int i = 0; i <1024*2; i++) 
+  for(int i = 0; i <1024*3; i++) 
   {
     particles.push_back(Particle{ngl::Vec4(pos(rnd)*.6+80, pos(rnd)*.6, pos(rnd)*.6, 1.), ngl::Vec3(0,0,-12), rad(rnd), ngl::Vec3(0,.6,0.)+ngl::Vec3(col(rnd), col(rnd), col(rnd))*.3, 3.});
   }
@@ -81,7 +81,7 @@ void RenderWidget::paintGL()
   std::chrono::duration<double> time = std::chrono::high_resolution_clock::now()-m_lastFrameTime;
   m_lastFrameTime = std::chrono::high_resolution_clock::now();
   float delta = time.count();
-  m_deltaAndFps->setText("Delta: " + QString::number(delta) + ", FPS: " + QString::number(1./delta));
+  m_deltaAndFps->setText("Delta: " + QString::number(delta) + ", FPS: " + QString::number(1./delta) + ", \nParticle Count: " + QString::number(m_particleSystem->getFrame(m_currentFrame).particleCount()));
 
   glViewport(0,0, size().width(), size().height());
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -101,6 +101,7 @@ void RenderWidget::resetSim()
 {
   m_particleSystem->eraseAfterFrame(0);
   m_particleSystem->clearFrame(0);
+  update();
 }
 void RenderWidget::mouseMoveEvent(QMouseEvent *_event)
 {
@@ -135,6 +136,6 @@ void RenderWidget::wheelEvent(QWheelEvent *_event)
 void RenderWidget::setFrame(int _newFrame)
 {
   m_currentFrame = _newFrame;
-  m_particleSystem->processToFrame(m_currentFrame, 1./m_fps);
+  m_particleSystem->processToFrame(m_currentFrame+1, 1./m_fps);
   update();
 }

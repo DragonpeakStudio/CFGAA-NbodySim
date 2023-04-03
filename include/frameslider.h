@@ -16,6 +16,7 @@ class FrameSlider : public QWidget
   public:
     FrameSlider(QWidget *_parent=nullptr);
     ~FrameSlider();
+    int getFrame() const;
   
   public slots:
     void setFrame(int _frame);

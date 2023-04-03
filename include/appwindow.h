@@ -21,6 +21,9 @@ class AppWindow : public QMainWindow
     AppWindow(QWidget *_parent=nullptr);
 
     ~AppWindow();
+
+  public slots:
+    void addParticles(const std::vector<Particle> &_particles);
   
   private:
     void setupUI();

@@ -55,10 +55,9 @@ size_t ParticleFrameBuffer::particleCount() const
 
 void ParticleFrameBuffer::addParticles(const std::vector<Particle> &_particles)
 {
-  glDeleteBuffers(1, &m_ssbo);//TODO avoid regenerating buffer
-  //TODO get changes from gpu
+  unloadFromGpu();
   m_particles.insert(std::end(m_particles), std::begin(_particles), std::end(_particles));
-  generateSSBO();
+  loadToGpu();
   
 }
 

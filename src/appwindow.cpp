@@ -16,6 +16,11 @@ AppWindow::~AppWindow()
 {
 }
 
+void AppWindow::addParticles(const std::vector<Particle> &_particles)
+{
+  m_renderWidget->particleSystem()->addToFrame(((FrameSlider*)m_frameSlider->widget())->getFrame(), _particles);
+  m_renderWidget->update();
+}
 void AppWindow::setupUI()
 {
   resize(QSize(1280,720));
@@ -78,5 +83,7 @@ void AppWindow::setupUI()
   connect((FrameSlider*)m_frameSlider->widget(), &FrameSlider::frameChanged, m_renderWidget, &RenderWidget::setFrame);
   connect((FrameSlider*)m_frameSlider->widget(), &FrameSlider::fpsChanged, m_renderWidget, &RenderWidget::setFps);
   connect((ControlBar*)m_controlBar->widget(), &ControlBar::resetPress, m_renderWidget, &RenderWidget::resetSim);
+  connect((ControlBar*)m_controlBar->widget(), &ControlBar::addParticles, this, &AppWindow::addParticles);
+
 
 }
