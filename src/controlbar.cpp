@@ -50,15 +50,17 @@ void ControlBar::generateParticles()
   std::vector<Particle> particles;
   particles.reserve(m_particleCount->value());
   std::mt19937 rnd(std::random_device{}());
-  std::normal_distribution<float> pos(-1, 1);
+  std::uniform_real_distribution<float> pos(-1, 1);
   std::uniform_real_distribution<float> col(0,1);
-  std::uniform_real_distribution<float> rad(0,m_radius->value());
 
   for(size_t i = 0; i < m_particleCount->value(); i++)
   {
-    ngl::Vec3 p = {pos(rnd), pos(rnd), pos(rnd)};
-    p.normalize();
-    p*=rad(rnd);
+    ngl::Vec3 p = ngl::Vec3(1,1,1);
+    while(p.lengthSquared() > 1.)
+    {
+      p = ngl::Vec3{pos(rnd), pos(rnd), pos(rnd)};
+    }
+    p=p*m_radius->value()+m_newPosition->getValue();
     particles.emplace_back(Particle{ngl::Vec4(p.m_x, p.m_y, p.m_z, 1.), m_newDirection->getValue()*m_speed->value(), 1., ngl::Vec3(.5,.5,.5), 1.});
   }
   emit addParticles(particles);
