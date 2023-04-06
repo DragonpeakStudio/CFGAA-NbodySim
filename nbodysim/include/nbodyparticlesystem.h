@@ -24,10 +24,16 @@ class NBodyParticleSystem
     void serialize(std::ostream &_stream);
     void deserialize(std::istream &_stream);
 
+    void setSpringCoeff(float _springCoeff);
+
+    void setdampCoeff(float _dampCoeff);
+
   private:
     void processNextFrame(float _delta);
     std::vector<ParticleFrameBuffer> m_particleBuffers;
     std::string m_updateProcess; 
+    float m_dampCoeff = .4;
+    float m_springCoeff = 20.;
 };
 
 #endif

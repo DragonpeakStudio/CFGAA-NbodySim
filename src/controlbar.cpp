@@ -2,6 +2,7 @@
 ControlBar::ControlBar(QWidget *_parent) : QWidget(_parent)
 {
   setLayout(new QVBoxLayout(this));
+  layout()->addWidget(new QLabel("Simulation Parameters:", this));
   layout()->setAlignment(Qt::AlignTop);
   layout()->addWidget(new QLabel("Sim FPS: ", this));
   m_simFps = new QSpinBox(this);
@@ -10,9 +11,26 @@ ControlBar::ControlBar(QWidget *_parent) : QWidget(_parent)
   connect(m_simFps, &QSpinBox::valueChanged, [this](){emit simFpsChanged(m_simFps->value());});
 
   layout()->addWidget(m_simFps);
+  layout()->addWidget(new QLabel("Damp Coefficient: "));
+  m_dampCoeff = new QDoubleSpinBox(this);
+  m_dampCoeff->setMinimum(.001);
+  m_dampCoeff->setMaximum(30.);
+  m_dampCoeff->setValue(.4);
+  layout()->addWidget(m_dampCoeff);
+  connect(m_dampCoeff, &QDoubleSpinBox::valueChanged, [this](){
+    emit dampCoeffChanged(m_dampCoeff->value());
+  });
+  layout()->addWidget(new QLabel("Spring Coefficient: "));
+  m_springCoeff = new QDoubleSpinBox(this);
+  m_springCoeff->setMinimum(.001);
+  m_springCoeff->setMaximum(100.);
+  m_springCoeff->setValue(20.);
+  layout()->addWidget(m_springCoeff);
+  connect(m_springCoeff, &QDoubleSpinBox::valueChanged, [this](){
+    emit springCoeffChanged(m_springCoeff->value());
+  });
   m_reset = new QPushButton("Reset Sim", this);
   connect(m_reset, &QPushButton::pressed, [this](){emit resetPress();});
-  layout()->addWidget(new QLabel("Simulation Parameters:", this));
   layout()->addWidget(m_reset);
   layout()->addWidget(new QLabel("Controls:", this));
   layout()->addWidget(new QLabel("Add Particles:", this));

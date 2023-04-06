@@ -103,6 +103,14 @@ void RenderWidget::resetSim()
   m_particleSystem->clearFrame(0);
   update();
 }
+void RenderWidget::setdampCoeff(float _dampCoeff)
+{
+  m_particleSystem->setdampCoeff(_dampCoeff);
+}
+void RenderWidget::setSpringCoeff(float _springCoeff)
+{
+  m_particleSystem->setSpringCoeff(_springCoeff);
+}
 void RenderWidget::mouseMoveEvent(QMouseEvent *_event)
 {
   auto pos = _event->position();

@@ -59,6 +59,10 @@ void NBodyParticleSystem::eraseAfterFrame(size_t _frame)
     m_particleBuffers.pop_back();
   }
 }
+void NBodyParticleSystem::setSpringCoeff(float _springCoeff)
+{
+  m_springCoeff = _springCoeff;
+}
 void NBodyParticleSystem::serialize(std::ostream &_stream)
 {
   _stream << m_particleBuffers.size() << "\n"; 
@@ -66,6 +70,10 @@ void NBodyParticleSystem::serialize(std::ostream &_stream)
   {
     i.serialize(_stream);
   }
+}
+void NBodyParticleSystem::setdampCoeff(float _dampCoeff)
+{
+  m_dampCoeff = _dampCoeff;
 }
 void NBodyParticleSystem::deserialize(std::istream &_stream)
 {
@@ -88,6 +96,9 @@ void NBodyParticleSystem::processNextFrame(float _delta)
   m_particleBuffers.emplace_back(lastSize);
   ngl::ShaderLib::use(m_updateProcess);
   ngl::ShaderLib::setUniform("delta", _delta);
+  ngl::ShaderLib::setUniform("springCoeff", m_springCoeff);
+  ngl::ShaderLib::setUniform("dampCoeff", m_dampCoeff);
+
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, lastSsbo);
   glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0,lastSsbo);
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_particleBuffers.back().ssbo());

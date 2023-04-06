@@ -24,10 +24,15 @@ class ControlBar : public QWidget
     void resetPress();
     void addParticles(const std::vector<Particle> &_particles);
     void simFpsChanged(int _newFps);
+    void dampCoeffChanged(float _newdampCoeff);
+    void springCoeffChanged(float _newSpringCoeff);
+
   
   private:
     void generateParticles();
     QSpinBox *m_simFps;
+    QDoubleSpinBox *m_dampCoeff;
+    QDoubleSpinBox *m_springCoeff;
     QPushButton *m_reset;
     QSpinBox *m_particleCount;
     Vector3DSpinBox *m_newPosition;

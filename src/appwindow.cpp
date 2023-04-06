@@ -84,6 +84,8 @@ void AppWindow::setupUI()
   connect((ControlBar*)m_controlBar->widget(), &ControlBar::simFpsChanged, m_renderWidget, &RenderWidget::setFps);
   connect((ControlBar*)m_controlBar->widget(), &ControlBar::resetPress, m_renderWidget, &RenderWidget::resetSim);
   connect((ControlBar*)m_controlBar->widget(), &ControlBar::addParticles, this, &AppWindow::addParticles);
+  connect((ControlBar*)m_controlBar->widget(), &ControlBar::dampCoeffChanged, m_renderWidget, &RenderWidget::setSpringCoeff);
+  connect((ControlBar*)m_controlBar->widget(), &ControlBar::springCoeffChanged, m_renderWidget, &RenderWidget::setdampCoeff);
 
 
 }

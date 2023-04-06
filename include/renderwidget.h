@@ -30,6 +30,9 @@ class RenderWidget : public QOpenGLWidget
     void setFrame(int _newFrame);
     void setFps(int _newFps);
     void resetSim();
+    void setdampCoeff(float _dampCoeff);
+    void setSpringCoeff(float _springCoeff);
+
     
   private:
     std::chrono::_V2::high_resolution_clock::time_point m_lastFrameTime;
