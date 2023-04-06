@@ -3,6 +3,13 @@ ControlBar::ControlBar(QWidget *_parent) : QWidget(_parent)
 {
   setLayout(new QVBoxLayout(this));
   layout()->setAlignment(Qt::AlignTop);
+  layout()->addWidget(new QLabel("Sim FPS: ", this));
+  m_simFps = new QSpinBox(this);
+  m_simFps->setValue(24);
+  m_simFps->setMaximum(9999);
+  connect(m_simFps, &QSpinBox::valueChanged, [this](){emit simFpsChanged(m_simFps->value());});
+
+  layout()->addWidget(m_simFps);
   m_reset = new QPushButton("Reset Sim", this);
   connect(m_reset, &QPushButton::pressed, [this](){emit resetPress();});
   layout()->addWidget(new QLabel("Simulation Parameters:", this));

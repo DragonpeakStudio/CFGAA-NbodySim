@@ -81,7 +81,7 @@ void AppWindow::setupUI()
   m_renderWidget = new RenderWidget();
   setCentralWidget(m_renderWidget);
   connect((FrameSlider*)m_frameSlider->widget(), &FrameSlider::frameChanged, m_renderWidget, &RenderWidget::setFrame);
-  connect((FrameSlider*)m_frameSlider->widget(), &FrameSlider::fpsChanged, m_renderWidget, &RenderWidget::setFps);
+  connect((ControlBar*)m_controlBar->widget(), &ControlBar::simFpsChanged, m_renderWidget, &RenderWidget::setFps);
   connect((ControlBar*)m_controlBar->widget(), &ControlBar::resetPress, m_renderWidget, &RenderWidget::resetSim);
   connect((ControlBar*)m_controlBar->widget(), &ControlBar::addParticles, this, &AppWindow::addParticles);
 

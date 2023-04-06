@@ -22,10 +22,11 @@ class ControlBar : public QWidget
   signals:
     void resetPress();
     void addParticles(const std::vector<Particle> &_particles);
-
+    void simFpsChanged(int _newFps);
   
   private:
     void generateParticles();
+    QSpinBox *m_simFps;
     QPushButton *m_reset;
     QSpinBox *m_particleCount;
     Vector3DSpinBox *m_newPosition;
