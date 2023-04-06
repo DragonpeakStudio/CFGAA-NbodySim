@@ -10,6 +10,7 @@
 #include <vector>
 #include <random>
 #include <QSpinBox>
+#include <QColorDialog>
 #include "particle.h"
 #include "vector3dspinbox.h"
 class ControlBar : public QWidget
@@ -33,6 +34,10 @@ class ControlBar : public QWidget
     QDoubleSpinBox *m_radius;
     Vector3DSpinBox *m_newDirection;
     QDoubleSpinBox *m_speed;
+    QDoubleSpinBox *m_mass;
+    QColor m_colour = QColor(160,160,160);
+    QPushButton *m_colourSelect;
+    QDoubleSpinBox *m_size;
     QPushButton *m_addParticles;
 };
 
