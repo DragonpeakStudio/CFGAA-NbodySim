@@ -29,6 +29,7 @@ class ParticleFrameBuffer
     void getFromGpu();
 
     void serialize(std::ostream &_stream);
+    void serializeToGeo(std::ostream &_stream);
     void deserialize(std::istream &_stream);
 
 

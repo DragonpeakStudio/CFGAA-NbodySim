@@ -8,6 +8,7 @@
 #include <QMenuBar>
 #include <QDockWidget>
 #include <QFileDialog>
+#include <sstream>
 #include <fstream>
 #include <QMessageBox>
 #include "controlbar.h"

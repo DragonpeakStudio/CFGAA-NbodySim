@@ -79,6 +79,21 @@ void ParticleFrameBuffer::serialize(std::ostream &_stream)
   _stream << '\n';
 }
 
+void ParticleFrameBuffer::serializeToGeo(std::ostream &_stream)
+{
+  getFromGpu();
+  for(auto &i : m_particles)
+  {
+    _stream << i.m_position.m_x << " " << i.m_position.m_y << " " << i.m_position.m_z << " " << i.m_position.m_w << " ";
+    _stream << "(";
+    _stream << i.m_colour.m_r << " " << i.m_colour.m_g << " " << i.m_colour.m_b << " ";
+    _stream << i.m_velocity.m_r << " " << i.m_velocity.m_g << " " << i.m_velocity.m_b << " ";
+    _stream << i.m_mass << " ";
+    _stream << i.m_radius;
+    _stream << ")\n";
+  }
+}
+
 void ParticleFrameBuffer::deserialize(std::istream &_stream)
 {
   int size = 0;

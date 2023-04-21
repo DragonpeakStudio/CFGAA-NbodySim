@@ -8,6 +8,7 @@
 #include <ngl/Vec3.h>
 #include <ngl/Vec4.h>
 #include <ngl/ShaderLib.h>
+#include <cassert>
 #include "particleframebuffer.h"
 
 class NBodyParticleSystem
@@ -23,11 +24,12 @@ class NBodyParticleSystem
 
     void serialize(std::ostream &_stream);
     void deserialize(std::istream &_stream);
+    void serializeToGeo(std::ostream &_stream, size_t _frameNum);
 
     void setSpringCoeff(float _springCoeff);
 
     void setdampCoeff(float _dampCoeff);
-
+    size_t currentFrameCount() const;
   private:
     void processNextFrame(float _delta);
     std::vector<ParticleFrameBuffer> m_particleBuffers;

@@ -75,6 +75,10 @@ void NBodyParticleSystem::setdampCoeff(float _dampCoeff)
 {
   m_dampCoeff = _dampCoeff;
 }
+size_t NBodyParticleSystem::currentFrameCount() const
+{
+  return m_particleBuffers.size();
+}
 void NBodyParticleSystem::deserialize(std::istream &_stream)
 {
   int size = 0;
@@ -88,6 +92,31 @@ void NBodyParticleSystem::deserialize(std::istream &_stream)
     m_particleBuffers.emplace_back(0);
     m_particleBuffers.back().deserialize(_stream);
   }
+}
+void NBodyParticleSystem::serializeToGeo(std::ostream &_stream, size_t _frameNum)
+{
+  assert((_frameNum < m_particleBuffers.size()));
+  ParticleFrameBuffer &buffer = m_particleBuffers[_frameNum];
+  _stream << "PGEOMETRY V5\n";
+  _stream << "NPoints " << buffer.particleCount() << " NPrims 1\n";
+  _stream << "NPointGroups 0 NPrimGroups 0\n";
+  _stream << "NPointAttrib 4  NVertexAttrib 0 NPrimAttrib 1 NAttrib 0\n";
+  _stream << "PointAttrib\n";
+  _stream << "Cd 3 float 1 1 1\n";
+  _stream << "v 3 float 1 1 1\n";
+  _stream << "mass 1 float 1\n";
+  _stream << "pscale 1 float 1\n";
+  buffer.serializeToGeo(_stream);
+  _stream << "PrimitiveAttrib\n";
+  _stream << "generator 1 index 1 papi\n";
+  _stream << "part " << buffer.particleCount();
+  for(size_t i = 0; i < buffer.particleCount(); i++)
+  {
+    _stream << i << " ";
+  }
+  _stream << "[0]\n";
+  _stream << "beginExtra\nendExtra\n";
+
 }
 void NBodyParticleSystem::processNextFrame(float _delta)
 {
