@@ -54,21 +54,21 @@ Hold LMB + Ctrl - Zoom
 Mouse Wheel - Zoom  
 
 Controls:  
-Sim FPS, the framerate of the simulation, this is seperate to the playback fps, allowing the sim to use smaller timesteps for higher detail or higher timesteps for faster processing.
-Damp Coefficent, Affects how "Sticky" Collisions are.
-Spring Coefficent, Affects how "Bouncy" Collisions are.
+Sim FPS, the framerate of the simulation, this is seperate to the playback fps, allowing the sim to use smaller timesteps for higher detail or higher timesteps for faster processing.  
+Damp Coefficent, Affects how "Sticky" Collisions are.  
+Spring Coefficent, Affects how "Bouncy" Collisions are.  
 Reset Sim, Clears the simulation to blank.  
 
 Add Particles:
-Amount, the number of particles to add.
-Poistion, the point to add particles around.
-Radius, the radius of the sphere which particles will be placed within.
-Direction, the normalized direction of the particles velocity.
-Speed, how fast the particles will be initialized to.
-Mass, The new particles mass.
-Colour, the colour of the particles.
-Size, the radius of the added particles.
-Add Particles, Adds new particles on the current frame based on the parameters above.
+Amount, the number of particles to add.  
+Poistion, the point to add particles around.  
+Radius, the radius of the sphere which particles will be placed within.  
+Direction, the normalized direction of the particles velocity.  
+Speed, how fast the particles will be initialized to.  
+Mass, The new particles mass.  
+Colour, the colour of the particles.  
+Size, the radius of the added particles.  
+Add Particles, Adds new particles on the current frame based on the parameters above.  
 
 Playback:  
 Currently no labels, so from left to right:  
