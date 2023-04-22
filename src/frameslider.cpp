@@ -1,18 +1,25 @@
 #include "frameslider.h"
 
-FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)//TODO better layout and labels
+FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)
 {
   setLayout(new QHBoxLayout(this));
+
+  QVBoxLayout *frameNumLayout = new QVBoxLayout(this);
+  ((QHBoxLayout*)layout())->addLayout(frameNumLayout);
 
   m_frameNum = new QSpinBox(this);
   m_frameNum->setValue(0);
   m_frameNum->setMaximum(1920);
-  layout()->addWidget(m_frameNum);
+  frameNumLayout->addWidget(new QLabel("Frame Num:", this));
+  frameNumLayout->addWidget(m_frameNum);
 
+  QVBoxLayout *fpsLayout = new QVBoxLayout(this);
+  ((QHBoxLayout*)layout())->addLayout(fpsLayout);
   m_fps = new QSpinBox(this);
   m_fps->setValue(24);
   m_fps->setMaximum(512);
-  layout()->addWidget(m_fps);
+  fpsLayout->addWidget(new QLabel("FPS:", this));
+  fpsLayout->addWidget(m_fps);
   m_playbackTimer = new QTimer(this);
 
   m_toStart = new QPushButton(QIcon("icons/media-step-backward-8x.png"), "", this);
@@ -42,11 +49,14 @@ FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)//TODO better layou
   m_slider->setTickInterval(1);
   layout()->addWidget(m_slider);
 
+  QVBoxLayout *frameEndLayout = new QVBoxLayout(this);
+  ((QHBoxLayout*)layout())->addLayout(frameEndLayout);
 
   m_frameEnd = new QSpinBox(this);
   m_frameEnd->setMaximum(9999999);
   m_frameEnd->setValue(1920);
-  layout()->addWidget(m_frameEnd);
+  frameEndLayout->addWidget(new QLabel("End Frame:", this));
+  frameEndLayout->addWidget(m_frameEnd);
   connect(m_frameEnd, &QSpinBox::valueChanged, this, &FrameSlider::setEnd);
   connect(m_frameNum, &QSpinBox::valueChanged, this, &FrameSlider::setFrame);
   connect(m_slider, &QSlider::valueChanged, this, &FrameSlider::setFrame);

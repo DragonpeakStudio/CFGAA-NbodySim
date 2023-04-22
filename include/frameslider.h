@@ -10,7 +10,7 @@
 #include <QTimer>
 #include <QPushButton>
 #include <QIcon>
-
+#include <QLabel>
 class FrameSlider : public QWidget
 {
   Q_OBJECT
