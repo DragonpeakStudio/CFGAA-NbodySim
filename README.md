@@ -23,7 +23,7 @@ The NBodyUI application is responsible for managing drawing the UI and handeling
 RenderWidget is where the primary viewing of the simulation is performed, with it managing rendering and camera controls.
 AppWindow is the main window, which uses a QMainWindow as to allow dockable widgets and easy usage of menus, such as the file menu, which allows saving and loading of the simulation as well as Houdini .geo file exports
 ControlBar represents the main set of controls available to the user for manipulating the simulation, such as adding new particles and changing simulation settings.
-FrameSlider allows the user to adjust the current frame, max frames and fps of the simulation as well as allowing them it initialize playback.
+FrameSlider allows the user to adjust the current frame, max frames and fps of the playback as well as initiate playback.
 
 ## Instructions
 ### Building
@@ -40,12 +40,12 @@ Requires a powerful GPU, Tested on a 2080 Super Max-Q w/ Ubuntu 22.04 & Qt 6.2.
 ### Usage
 UI is currently incomplete, so below instructions might change.  
 File Menu(Top Left):  
-Save, saves the simulation to a file. This currently uses a ascii based system and produces very large files, 240 frames of the default sim is ~400mb.
+Save, saves the simulation to a file. This currently uses a uncompressed binary based system and produces very large files, 240 frames of the default sim is ~200mb.
 Hopefully this can be improved.  
 
-Load, Loads the files created by the above, currently has some issues, will not properly display until the sim has been played back atlease once and can sometimes create broken particles.  
+Load, Loads the files created by the above, can sometimes create broken particles.  
 
-Export .geo, UNIMLEMENTED, will export .geo files for Houdini.  
+Export .geo, currently the exported files do not load correctly within Houdini. 
 
 Viewport:  
 Hold LMB - Orbit  
@@ -54,12 +54,26 @@ Hold LMB + Ctrl - Zoom
 Mouse Wheel - Zoom  
 
 Controls:  
-Reset Sim, Clears the simulation to blank, as controls for adding new particles do not yet exist this should probably not be used execept for testing.  
+Sim FPS, the framerate of the simulation, this is seperate to the playback fps, allowing the sim to use smaller timesteps for higher detail or higher timesteps for faster processing.  
+Damp Coefficent, Affects how "Sticky" Collisions are.  
+Spring Coefficent, Affects how "Bouncy" Collisions are.  
+Reset Sim, Clears the simulation to blank.  
+
+Add Particles:
+Amount, the number of particles to add.  
+Poistion, the point to add particles around.  
+Radius, the radius of the sphere which particles will be placed within.  
+Direction, the normalized direction of the particles velocity.  
+Speed, how fast the particles will be initialized to.  
+Mass, The new particles mass.  
+Colour, the colour of the particles.  
+Size, the radius of the added particles.  
+Add Particles, Adds new particles on the current frame based on the parameters above.  
 
 Playback:  
 Currently no labels, so from left to right:  
 Current frame number.  
-Frame Rate, effects simulation FPS and playback FPS, might make these seperate controls in the future  
+Frame Rate, affects only playback FPS.  
 ToStart, Rewind, Pause, Play, ToEnd - playback controls for simulation, note that on a long sim ToEnd might take a while as it has to calc the sim up to that point. Will add proper icons in future.  
 Frame Slider, Slider to control the current frame.  
 Frame End, End of the simulation, can increase or reduce to manipulate simulation length.  
