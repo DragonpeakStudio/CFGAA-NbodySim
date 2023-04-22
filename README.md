@@ -77,3 +77,7 @@ Frame Rate, affects only playback FPS.
 ToStart, Rewind, Pause, Play, ToEnd - playback controls for simulation, note that on a long sim ToEnd might take a while as it has to calc the sim up to that point. Will add proper icons in future.  
 Frame Slider, Slider to control the current frame.  
 Frame End, End of the simulation, can increase or reduce to manipulate simulation length.  
+
+## Notes
+Note: Uses icons from Open Iconic: https://github.com/iconic/open-iconic under MIT Licence  
+See resources/icons/ICON-LICENCE for details
