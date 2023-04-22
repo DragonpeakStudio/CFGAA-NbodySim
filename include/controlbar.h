@@ -4,15 +4,12 @@
 #pragma once
 
 #include <QWidget>
-#include <QLabel>
-#include <QVBoxLayout>
 #include <QPushButton>
 #include <vector>
-#include <random>
 #include <QSpinBox>
-#include <QColorDialog>
 #include "particle.h"
 #include "vector3dspinbox.h"
+
 class ControlBar : public QWidget
 {
   Q_OBJECT

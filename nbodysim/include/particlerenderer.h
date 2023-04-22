@@ -4,7 +4,6 @@
 #pragma once
 
 #include <ngl/AbstractMesh.h>
-#include <ngl/ShaderLib.h>
 #include <ngl/Mat4.h>
 #include <string>
 #include <memory>

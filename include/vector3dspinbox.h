@@ -5,7 +5,6 @@
 
 #include <QWidget>
 #include <QDoubleSpinBox>
-#include <QHBoxLayout>
 #include <ngl/Vec3.h>
 class Vector3DSpinBox : public QWidget
 {

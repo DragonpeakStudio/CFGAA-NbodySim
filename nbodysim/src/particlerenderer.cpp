@@ -1,4 +1,5 @@
 #include "particlerenderer.h"
+#include <ngl/ShaderLib.h>
 
 ParticleRenderer::ParticleRenderer(std::string_view _shader, std::unique_ptr<ngl::AbstractMesh> _instancedGeo) : m_shader(_shader), m_instancedGeo(std::move(_instancedGeo))
 {

@@ -4,11 +4,6 @@
 #pragma once
 
 #include <string_view>
-#include <iostream>
-#include <ngl/Vec3.h>
-#include <ngl/Vec4.h>
-#include <ngl/ShaderLib.h>
-#include <cassert>
 #include "particleframebuffer.h"
 
 class NBodyParticleSystem
@@ -28,7 +23,7 @@ class NBodyParticleSystem
 
     void setSpringCoeff(float _springCoeff);
 
-    void setdampCoeff(float _dampCoeff);
+    void setDampCoeff(float _dampCoeff);
     size_t currentFrameCount() const;
   private:
     void processNextFrame(float _delta);

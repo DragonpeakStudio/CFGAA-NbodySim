@@ -1,5 +1,6 @@
 #include "particleframebuffer.h"
-
+#include <string>
+#include <sstream>
 ParticleFrameBuffer::ParticleFrameBuffer(size_t _particleCount) : m_particles{_particleCount}
 {
   generateSSBO();

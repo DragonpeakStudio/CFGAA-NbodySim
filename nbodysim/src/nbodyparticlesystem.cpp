@@ -1,5 +1,9 @@
 #include "nbodyparticlesystem.h"
-
+#include <iostream>
+#include <ngl/Vec3.h>
+#include <ngl/Vec4.h>
+#include <ngl/ShaderLib.h>
+#include <cassert>
 NBodyParticleSystem::NBodyParticleSystem(std::string_view _updateProcess) : m_updateProcess(_updateProcess)
 {
   m_particleBuffers.emplace_back(0);//blank frame 0 for now
@@ -71,7 +75,7 @@ void NBodyParticleSystem::serialize(std::ostream &_stream)
     i.serialize(_stream);
   }
 }
-void NBodyParticleSystem::setdampCoeff(float _dampCoeff)
+void NBodyParticleSystem::setDampCoeff(float _dampCoeff)
 {
   m_dampCoeff = _dampCoeff;
 }

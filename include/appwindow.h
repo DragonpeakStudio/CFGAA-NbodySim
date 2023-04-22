@@ -7,13 +7,8 @@
 #include <QString>
 #include <QMenuBar>
 #include <QDockWidget>
-#include <QFileDialog>
-#include <sstream>
-#include <fstream>
-#include <QMessageBox>
-#include "controlbar.h"
 #include "renderwidget.h"
-#include "frameslider.h"
+
 class AppWindow : public QMainWindow
 {
   Q_OBJECT

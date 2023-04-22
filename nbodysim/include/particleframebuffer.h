@@ -3,13 +3,11 @@
 
 #pragma once
 #include <GL/gl3w.h>
-#include <string>
-#include <sstream>
 #include <vector>
 #include <iostream>
 #include "particle.h"
 class ParticleFrameBuffer
-{//TODO possibly rename to avoid confusion with the concept of an opengl framebuffer
+{
   public:
     ParticleFrameBuffer(size_t _particleCount);
     ParticleFrameBuffer(const std::vector<Particle> &_data);

@@ -1,4 +1,5 @@
 #include "vector3dspinbox.h"
+#include <QHBoxLayout>
 
 Vector3DSpinBox::Vector3DSpinBox(QWidget *_parent, double _min, double _max, bool _normalize) : QWidget(_parent), m_normalize(_normalize)
 {

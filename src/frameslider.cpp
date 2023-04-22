@@ -1,4 +1,7 @@
 #include "frameslider.h"
+#include <QLabel>
+#include <QHBoxLayout>
+#include <QIcon>
 
 FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)
 {

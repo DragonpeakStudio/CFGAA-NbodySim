@@ -1,4 +1,10 @@
 #include "appwindow.h"
+#include <QFileDialog>
+#include <sstream>
+#include <fstream>
+#include <QMessageBox>
+#include "controlbar.h"
+#include "frameslider.h"
 
 AppWindow::AppWindow(const QString &_title, QWidget *_parent) : QMainWindow(_parent)
 {
@@ -107,7 +113,7 @@ void AppWindow::setupUI()
   connect((ControlBar*)m_controlBar->widget(), &ControlBar::resetPress, m_renderWidget, &RenderWidget::resetSim);
   connect((ControlBar*)m_controlBar->widget(), &ControlBar::addParticles, this, &AppWindow::addParticles);
   connect((ControlBar*)m_controlBar->widget(), &ControlBar::dampCoeffChanged, m_renderWidget, &RenderWidget::setSpringCoeff);
-  connect((ControlBar*)m_controlBar->widget(), &ControlBar::springCoeffChanged, m_renderWidget, &RenderWidget::setdampCoeff);
+  connect((ControlBar*)m_controlBar->widget(), &ControlBar::springCoeffChanged, m_renderWidget, &RenderWidget::setDampCoeff);
 
 
 }

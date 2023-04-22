@@ -1,4 +1,5 @@
 #include "renderwidget.h"
+#include <ngl/ShaderLib.h>
 
 RenderWidget::RenderWidget()
 {
@@ -103,9 +104,9 @@ void RenderWidget::resetSim()
   m_particleSystem->clearFrame(0);
   update();
 }
-void RenderWidget::setdampCoeff(float _dampCoeff)
+void RenderWidget::setDampCoeff(float _dampCoeff)
 {
-  m_particleSystem->setdampCoeff(_dampCoeff);
+  m_particleSystem->setDampCoeff(_dampCoeff);
 }
 void RenderWidget::setSpringCoeff(float _springCoeff)
 {

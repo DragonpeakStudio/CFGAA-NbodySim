@@ -1,4 +1,9 @@
 #include "controlbar.h"
+#include <QLabel>
+#include <QColorDialog>
+#include <random>
+#include <QVBoxLayout>
+
 ControlBar::ControlBar(QWidget *_parent) : QWidget(_parent)
 {
   setLayout(new QVBoxLayout(this));

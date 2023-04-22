@@ -5,12 +5,9 @@
 
 #include <QWidget>  
 #include <QSlider>
-#include <QHBoxLayout>
 #include <QSpinBox>
 #include <QTimer>
 #include <QPushButton>
-#include <QIcon>
-#include <QLabel>
 class FrameSlider : public QWidget
 {
   Q_OBJECT

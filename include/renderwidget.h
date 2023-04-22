@@ -6,7 +6,6 @@
 #include <QMouseEvent>
 #include <QWheelEvent>
 #include <QLabel>
-
 #include <QOpenGLWidget>
 #include <ngl/Obj.h>
 #include <random>
@@ -14,6 +13,7 @@
 #include "nbodyparticlesystem.h"
 #include "particlerenderer.h"
 #include "camera.h"
+
 class RenderWidget : public QOpenGLWidget
 {
   Q_OBJECT
@@ -30,7 +30,7 @@ class RenderWidget : public QOpenGLWidget
     void setFrame(int _newFrame);
     void setFps(int _newFps);
     void resetSim();
-    void setdampCoeff(float _dampCoeff);
+    void setDampCoeff(float _dampCoeff);
     void setSpringCoeff(float _springCoeff);
 
     
