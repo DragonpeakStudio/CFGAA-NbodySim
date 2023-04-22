@@ -15,23 +15,23 @@ FrameSlider::FrameSlider(QWidget *_parent) : QWidget(_parent)//TODO better layou
   layout()->addWidget(m_fps);
   m_playbackTimer = new QTimer(this);
 
-  m_toStart = new QPushButton("ToStart", this);//TODO icons
+  m_toStart = new QPushButton(QIcon("icons/media-step-backward-8x.png"), "", this);
   connect(m_toStart, &QPushButton::pressed, [this](){m_playbackTimer->stop();setFrame(0);});
   layout()->addWidget(m_toStart);
 
-  m_rewind = new QPushButton("Rewind", this);//TODO icons
+  m_rewind = new QPushButton(QIcon("icons/media-reversed-play-8x.png"), "", this);
   connect(m_rewind, &QPushButton::pressed, [this](){m_frameAdvance = -1; m_playbackTimer->start((1./m_fps->value())*1000);});
   layout()->addWidget(m_rewind);
 
-  m_pause = new QPushButton("Pause", this);//TODO icons
+  m_pause = new QPushButton(QIcon("icons/media-pause-8x.png"), "", this);
   connect(m_pause, &QPushButton::pressed, [this](){m_playbackTimer->stop();});
   layout()->addWidget(m_pause);
 
-  m_play = new QPushButton("Play", this);//TODO icons
+  m_play = new QPushButton(QIcon("icons/media-play-8x.png"), "", this);
   connect(m_play, &QPushButton::pressed, [this](){m_frameAdvance = 1; m_playbackTimer->start((1./m_fps->value())*1000);});
   layout()->addWidget(m_play);
 
-  m_toEnd = new QPushButton("ToEnd", this);//TODO icons
+  m_toEnd = new QPushButton(QIcon("icons/media-step-forward-8x.png"), "", this);
   connect(m_toEnd, &QPushButton::pressed, [this](){m_playbackTimer->stop();setFrame(m_frameEnd->value());});
   layout()->addWidget(m_toEnd);
 

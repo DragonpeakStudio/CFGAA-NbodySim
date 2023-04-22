@@ -9,6 +9,7 @@
 #include <QSpinBox>
 #include <QTimer>
 #include <QPushButton>
+#include <QIcon>
 
 class FrameSlider : public QWidget
 {
