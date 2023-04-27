@@ -113,7 +113,7 @@ void NBodyParticleSystem::serializeToGeo(std::ostream &_stream, size_t _frameNum
   buffer.serializeToGeo(_stream);
   _stream << "PrimitiveAttrib\n";
   _stream << "generator 1 index 1 papi\n";
-  _stream << "part " << buffer.particleCount();
+  _stream << "Part " << buffer.particleCount() << " ";
   for(size_t i = 0; i < buffer.particleCount(); i++)
   {
     _stream << i << " ";
