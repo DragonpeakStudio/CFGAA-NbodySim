@@ -1,6 +1,8 @@
 # CFGAA - Rowan Cruse Howse - Assignment - N-Body particle sim
 ## Contact Info
 email: s5408935@bournemouth.ac.uk
+![Screenshot of application](/docs/images/Screenshot%20from%202023-04-29%2009-07-51.png "Screenshot")
+
 
 ## Overview
 A GPU accelerated N-Body particle system for simulating gravitational effects, such as planet formation or asteroid collision. 
