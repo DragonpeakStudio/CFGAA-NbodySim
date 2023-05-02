@@ -21,7 +21,7 @@ The NBodyParticleSystem class represents the particles system and provides the f
 It holds a vector of ParticleFrameBuffer's each of which represents a single frame of the simulation.
 To allow simulations to be easily designed, viewed and exported, they are of a fixed length and all previous frames are kept in memory, similar to how simulations in Houdini work. This is as opposed to how they might work in games, where only two swappable buffers are stored. While that would reduce memory usage it would make it impossible to rewind and modify the simulation.
 The ParticleRenderer provides a way to render the particles using simple instanced rendering.
-![Screenshot of application](/docs/images/NBodyParticleSim.drawio.png "Screenshot")
+![UML Diagram of NBodyParticleSim Library](/docs/images/NBodyParticleSim.drawio.png "Diagram")
 
 
 ### NBodyUI
@@ -30,7 +30,7 @@ RenderWidget is where the primary drawing of the simulation is performed, with i
 AppWindow is the main window, which uses a QMainWindow as to allow dockable widgets and easy usage of menus, such as the file menu, which allows saving and loading of the simulation as well as Houdini .geo file exports
 ControlBar represents the main set of controls available to the user for manipulating the simulation, such as adding new particles and changing simulation settings.
 FrameSlider allows the user to adjust the current frame, max frames and fps of the playback as well as initiate playback.
-![Screenshot of application](/docs/images/NBodyUI.drawio.png "Screenshot")
+![UML Diagram of NBodyUI](/docs/images/NBodyUI.drawio.png "Diagram")
 
 ## Instructions
 ### Building
