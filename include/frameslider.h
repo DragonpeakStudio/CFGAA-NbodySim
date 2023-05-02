@@ -8,6 +8,10 @@
 #include <QSpinBox>
 #include <QTimer>
 #include <QPushButton>
+/**
+ * @brief Controls to play, rewind and scrub the simulation
+ * 
+ */
 class FrameSlider : public QWidget
 {
   Q_OBJECT

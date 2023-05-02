@@ -43,6 +43,8 @@ void AppWindow::setupUI()
   m_frameSlider->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable);
   m_frameSlider->setWidget(new FrameSlider());
   addDockWidget(Qt::BottomDockWidgetArea, m_frameSlider);
+
+  //File menu, these should probably be seperated away somewhere.
   m_fileMenu = menuBar()->addMenu("File");
   m_fileMenu->addAction("Open", [this]()
   {
@@ -108,6 +110,8 @@ void AppWindow::setupUI()
 
   m_renderWidget = new RenderWidget();
   setCentralWidget(m_renderWidget);
+
+  //A mess of setting up connections, I'm sure this could be done cleaner somehow 
   connect((FrameSlider*)m_frameSlider->widget(), &FrameSlider::frameChanged, m_renderWidget, &RenderWidget::setFrame);
   connect((ControlBar*)m_controlBar->widget(), &ControlBar::simFpsChanged, m_renderWidget, &RenderWidget::setFps);
   connect((ControlBar*)m_controlBar->widget(), &ControlBar::resetPress, m_renderWidget, &RenderWidget::resetSim);

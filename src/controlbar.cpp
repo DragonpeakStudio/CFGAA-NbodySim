@@ -54,6 +54,7 @@ ControlBar::ControlBar(QWidget *_parent) : QWidget(_parent)
   m_radius = new QDoubleSpinBox(this);
   m_radius->setMinimum(.1);
   m_radius->setMaximum(9999);
+  m_radius->setValue(50);
   layout()->addWidget(m_radius);
   layout()->addWidget(new QLabel("Direction:", this));
   m_newDirection = new Vector3DSpinBox(this, -1, 1, true);

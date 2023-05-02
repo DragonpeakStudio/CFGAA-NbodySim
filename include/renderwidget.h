@@ -14,6 +14,10 @@
 #include "particlerenderer.h"
 #include "camera.h"
 
+/**
+ * @brief manages rendering, display and camera controls
+ * 
+ */
 class RenderWidget : public QOpenGLWidget
 {
   Q_OBJECT
