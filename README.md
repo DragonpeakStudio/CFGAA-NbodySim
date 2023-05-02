@@ -29,6 +29,7 @@ FrameSlider allows the user to adjust the current frame, max frames and fps of t
 
 ## Instructions
 ### Building
+Assumes NGL is installed in ~/NGL and vcpkg with NGL's requirements installed in ~/vcpkg
 ```
 cd programming-project-Rowan-Cruse-Howse  
 mkdir build  
