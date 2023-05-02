@@ -29,23 +29,24 @@ FrameSlider allows the user to adjust the current frame, max frames and fps of t
 
 ## Instructions
 ### Building
+```
 cd programming-project-Rowan-Cruse-Howse  
 mkdir build  
 cd build  
 cmake ..  
 make  
-
+```
 ### Running
+```
 ./NBodyUI  
+```
 Requires a powerful GPU, Tested on a 2080 Super Max-Q w/ Ubuntu 22.04 & Qt 6.2.
 
-### Usage
-UI is currently incomplete, so below instructions might change.  
+### Usage 
 File Menu(Top Left):  
 Save, saves the simulation to a file. This currently uses a uncompressed binary based system and produces very large files, 240 frames of the default sim is ~200mb.
-Hopefully this can be improved.  
 
-Load, Loads the files created by the above, can sometimes create broken particles.  
+Load, Loads the files created by the above.  
 
 Export .geo, currently the exported files do not load correctly within Houdini. 
 
