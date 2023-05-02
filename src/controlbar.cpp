@@ -42,7 +42,7 @@ ControlBar::ControlBar(QWidget *_parent) : QWidget(_parent)
   layout()->addWidget(new QLabel("Amount:", this));
 
   m_particleCount = new QSpinBox(this);
-  m_particleCount->setMinimum(128);
+  m_particleCount->setMinimum(1);
   m_particleCount->setMaximum(128*2000);
 
   layout()->addWidget(m_particleCount);

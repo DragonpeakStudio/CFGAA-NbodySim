@@ -33,6 +33,7 @@ void NBodyParticleSystem::clearFrame(size_t _frame)
 }
 void NBodyParticleSystem::addToFrame(size_t _frame, const std::vector<Particle> &_particles)
 {
+  _frame = std::min(_frame, m_particleBuffers.size()-1);
   eraseAfterFrame(_frame);
   m_particleBuffers[_frame].addParticles(_particles);
 }
@@ -132,12 +133,14 @@ void NBodyParticleSystem::processNextFrame(float _delta)
   ngl::ShaderLib::setUniform("delta", _delta);
   ngl::ShaderLib::setUniform("springCoeff", m_springCoeff);
   ngl::ShaderLib::setUniform("dampCoeff", m_dampCoeff);
+  GLint loc = glGetUniformLocation(ngl::ShaderLib::getProgramID(m_updateProcess), "particleCount");//have to do this one manually as ngl has no uint override for uniforms
+  glUniform1ui(loc, lastSize);
 
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, lastSsbo);
   glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0,lastSsbo);
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_particleBuffers.back().ssbo());
   glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1,m_particleBuffers.back().ssbo());
-  glDispatchCompute(m_particleBuffers.back().particleCount()/128, 1, 1);
+  glDispatchCompute((m_particleBuffers.back().particleCount())/128+1, 1, 1);
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
   m_particleBuffers[m_particleBuffers.size()-2].unloadFromGpu();
 }

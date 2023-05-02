@@ -15,18 +15,19 @@
  */
 class ControlBar : public QWidget
 {
+
   Q_OBJECT
   public:
     ControlBar(QWidget *_parent=nullptr);
     ~ControlBar();
-  
+
   signals:
     void resetPress();
     void addParticles(const std::vector<Particle> &_particles);
     void simFpsChanged(int _newFps);
     void dampCoeffChanged(float _newdampCoeff);
     void springCoeffChanged(float _newSpringCoeff);
-  
+
   private:
     void generateParticles();
     QSpinBox *m_simFps;
@@ -44,5 +45,4 @@ class ControlBar : public QWidget
     QDoubleSpinBox *m_size;
     QPushButton *m_addParticles;
 };
-
 #endif

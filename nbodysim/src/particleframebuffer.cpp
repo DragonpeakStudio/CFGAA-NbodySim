@@ -64,11 +64,8 @@ void ParticleFrameBuffer::addParticles(const std::vector<Particle> &_particles)
 
 void ParticleFrameBuffer::getFromGpu()
 {
-  GLint size = 0;
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_ssbo);
-  glGetBufferParameteriv(GL_SHADER_STORAGE_BUFFER, GL_BUFFER_SIZE, &size);
-  m_particles.reserve(size/sizeof(Particle)-m_particles.size());
-  glGetBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, size, m_particles.data());
+  glGetBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, m_particles.size()*sizeof(Particle), m_particles.data());
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 

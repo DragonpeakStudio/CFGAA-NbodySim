@@ -35,7 +35,7 @@ class NBodyParticleSystem
     /**
      * @brief Add new particles to frame and remove now invalid subsequent frames
      * 
-     * @param _frame the frame to add to, must be a valid frame
+     * @param _frame the frame to add to, if it is invalid the particles will be added to the last valid frame
      * @param _particles a const reference vector of particles to add 
      */
     void addToFrame(size_t _frame, const std::vector<Particle> &_particles);
