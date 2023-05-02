@@ -19,7 +19,7 @@ This helps to keep the different parts of the program distict and means that in 
 The NBodyParticleSim manages simulation and rendering of the particles. 
 The NBodyParticleSystem class represents the particles system and provides the fuctionality for simulating the next frame and accessing different frames.
 It holds a vector of ParticleFrameBuffer's each of which represents a single frame of the simulation.
-To allow simulations to be easily designed, viewed and exported, they are of a fixed length and all previous frames are kept in memory, similar to how simulations in Houdini work. This is as opposed to how they might work in games, where only two swappable buffers are stored. While that would reduce memory usage it would make it impossible to rewind and modify the simulation.
+To allow simulations to be easily designed, viewed and exported, they are of a fixed length and all previous frames are kept in memory, similar to how simulations in Houdini work. This is as opposed to how they might work in games, where only two swappable buffers are stored. While that would reduce memory usage it would make it impossible to rewind and modify the simulation. Although all frames are held in memory only the most necessary ones are kept in vram, while others are kept in system ram.
 The ParticleRenderer provides a way to render the particles using simple instanced rendering.
 ![UML Diagram of NBodyParticleSim Library](/docs/images/NBodyParticleSim.drawio.png "Diagram")
 

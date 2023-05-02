@@ -6,6 +6,10 @@
 #include <QWidget>
 #include <QDoubleSpinBox>
 #include <ngl/Vec3.h>
+/**
+ * @brief Widget to allow 3 spin boxes resulting in a vec3
+ * 
+ */
 class Vector3DSpinBox : public QWidget
 {
   Q_OBJECT
@@ -18,6 +22,7 @@ class Vector3DSpinBox : public QWidget
 
   signals:
     void valueChanged(ngl::Vec3 newValue);
+    
   private:
     QDoubleSpinBox *m_x;
     QDoubleSpinBox *m_y;

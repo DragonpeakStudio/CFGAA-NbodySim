@@ -4,6 +4,10 @@
 
 #include <ngl/Vec3.h>
 #include <ngl/Vec4.h>
+/**
+ * @brief A simple struct to contain a single particle
+ * 
+ */
 struct Particle
 {
   ngl::Vec4 m_position = ngl::Vec4(0,0,0,0);//Vec4 as to align to multiples of vec4 size in memory for ssbo

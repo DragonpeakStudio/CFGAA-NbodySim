@@ -9,7 +9,10 @@
 #include <QSpinBox>
 #include "particle.h"
 #include "vector3dspinbox.h"
-
+/**
+ * @brief Provides controls to allow the user to influence the simulation
+ * 
+ */
 class ControlBar : public QWidget
 {
   Q_OBJECT
@@ -23,7 +26,6 @@ class ControlBar : public QWidget
     void simFpsChanged(int _newFps);
     void dampCoeffChanged(float _newdampCoeff);
     void springCoeffChanged(float _newSpringCoeff);
-
   
   private:
     void generateParticles();
