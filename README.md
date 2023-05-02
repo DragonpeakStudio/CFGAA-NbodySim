@@ -29,7 +29,7 @@ FrameSlider allows the user to adjust the current frame, max frames and fps of t
 
 ## Instructions
 ### Building
-Assumes NGL is installed in ~/NGL and vcpkg with NGL's requirements installed in ~/vcpkg
+Assumes NGL is installed in ~/NGL and vcpkg with NGL's requirements installed in ~/vcpkg and that Qt6 will be sucessfully found. If it is not already in the path it might have to be added.
 ```
 cd programming-project-Rowan-Cruse-Howse  
 mkdir build  
@@ -49,7 +49,7 @@ Save, saves the simulation to a file. This currently uses a uncompressed binary 
 
 Load, Loads the files created by the above.  
 
-Export .geo, currently the exported files do not load correctly within Houdini. 
+Export .geo, allowing the result to be used in Houdini.
 
 Viewport:  
 Hold LMB - Orbit  
