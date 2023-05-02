@@ -35,6 +35,7 @@ FrameSlider allows the user to adjust the current frame, max frames and fps of t
 ## Instructions
 ### Building
 Assumes NGL is installed in ~/NGL and vcpkg with NGL's requirements installed in ~/vcpkg and that Qt6 will be sucessfully found. If it is not already in the path it might have to be added.
+An example on how Qt might need to be specified is ``` cmake -DCMAKE_PREFIX_PATH="$HOME/Qt/6.2.4/gcc_64" .. ```
 ```
 cd programming-project-Rowan-Cruse-Howse  
 mkdir build  
