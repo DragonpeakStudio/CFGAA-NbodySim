@@ -9,7 +9,8 @@ A GPU accelerated N-Body particle system for simulating gravitational effects, s
 The program uses OpenGL, via NGL, for compute shader based processing and particle rendering as well as QT6 for the user interface.
 As a basis for implementing the N-Body algorithm I will be using: https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-31-fast-n-body-simulation-cuda
 Although I will be using GLSL compute shaders not CUDA the same algorithm can be implemented.
-Initially I will implement the simple All Pairs algorithm, essentially just looping through all particles for each particle and summing forces (N^2 complexity). If time allows I might also look into some form of approximation for distant particles to avoid looping though them all, the above chapter briefly discusses hierarchical approaches.
+Initially I will implement the simple All Pairs algorithm, essentially just looping through all particles for each particle and summing forces (N^2 complexity). If time allows I might also look into some form of approximate acceleration structure for distant particles to avoid looping though them all, the above chapter briefly discusses hierarchical approaches.
+Collision between the particles is resolved using the approach described in https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-29-real-time-rigid-body-simulation-gpus. Which uses a combination of a repusive spring force and a dampening force to allow particles to bounce off of one another while still letting them settle into uniform arangements. 
 
 ## Design
 The program is divided into two main parts, A library containing the functionality to process the particles and the user interface which uses the classes provided by this library.
@@ -81,7 +82,7 @@ Size, the radius of the added particles.
 Add Particles, Adds new particles on the current frame based on the parameters above.  
 
 Playback:  
-Currently no labels, so from left to right:  
+from left to right:  
 Current frame number.  
 Frame Rate, affects only playback FPS.  
 ToStart, Rewind, Pause, Play, ToEnd - playback controls for simulation, note that on a long sim ToEnd might take a while as it has to calc the sim up to that point. Will add proper icons in future.  
