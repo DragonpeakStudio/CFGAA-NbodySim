@@ -96,7 +96,7 @@ void ParticleFrameBuffer::deserialize(std::istream &_stream)
 {
   int size = 0;
   _stream >> size;
-  std::cerr << size << std::endl;
+  //std::cerr << size << std::endl;
   _stream.ignore(1, '\n');
   m_particles.clear();
   m_particles.resize(size); 

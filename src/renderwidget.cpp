@@ -122,7 +122,7 @@ void RenderWidget::mouseMoveEvent(QMouseEvent *_event)
   }
   else if(_event->modifiers() == Qt::ControlModifier)
   {
-    m_camera.zoom(diff.y()*-m_zoomScale);
+    m_camera.zoom(diff.y()*m_zoomScale);
   }
   else
   {
@@ -139,7 +139,7 @@ void RenderWidget::mousePressEvent(QMouseEvent *_event)
 
 void RenderWidget::wheelEvent(QWheelEvent *_event)
 {
-  m_camera.zoom(_event->angleDelta().y()*m_zoomScale);
+  m_camera.zoom(_event->angleDelta().y()*-m_zoomScale);
   update();
 }
 void RenderWidget::setFrame(int _newFrame)
