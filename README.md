@@ -1,5 +1,6 @@
 # CFGAA - Rowan Cruse Howse - Assignment - N-Body particle sim
 ## Contact Info
+Jon test
 email: s5408935@bournemouth.ac.uk
 ![Screenshot of application](/docs/images/Screenshot%20from%202023-04-29%2009-07-51.png "Screenshot")
 
