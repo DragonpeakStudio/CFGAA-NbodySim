@@ -90,9 +90,6 @@ void RenderWidget::paintGL()
   //update();//Forces constant updates to allow easier debugging from nsight
 }
 
-void RenderWidget::resizeGL(int w, int h)
-{
-}
 void RenderWidget::setFps(int _newFps)
 {
   m_fps = _newFps;//TODO figure out how this should affect existing frames

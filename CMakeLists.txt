@@ -15,7 +15,7 @@ include_directories("$ENV{HOME}/NGL/include")
 include_directories("${Qt6Widgets_INCLUDE_DIRS}")
 
 add_subdirectory(nbodysim)
-
+add_compile_options(-Wall -Wextra -Wpedantic)
 add_executable(NBodyUI src/main.cpp src/appwindow.cpp include/appwindow.h src/controlbar.cpp include/controlbar.h src/renderwidget.cpp include/renderwidget.h include/frameslider.h src/frameslider.cpp include/camera.h src/vector3dspinbox.cpp include/vector3dspinbox.h src/camera.cpp)
 
 

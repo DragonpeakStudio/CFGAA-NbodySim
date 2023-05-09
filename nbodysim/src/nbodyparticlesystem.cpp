@@ -91,7 +91,7 @@ void NBodyParticleSystem::deserialize(std::istream &_stream)
   _stream.ignore(1, '\n');
   m_particleBuffers.clear();
   m_particleBuffers.reserve(size);
-  std::cerr << size << std::endl; 
+  //std::cerr << size << std::endl; 
   while(_stream.peek() != EOF)
   {
     m_particleBuffers.emplace_back(0);

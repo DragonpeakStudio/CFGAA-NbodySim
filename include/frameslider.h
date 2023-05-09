@@ -38,7 +38,7 @@ class FrameSlider : public QWidget
     QPushButton *m_rewind;
     QPushButton *m_pause;
     QPushButton *m_play;
-    QPushButton *m_toEnd;;
+    QPushButton *m_toEnd;
     int m_frameAdvance = 0;
 };
 

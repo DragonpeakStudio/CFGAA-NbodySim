@@ -26,7 +26,6 @@ class RenderWidget : public QOpenGLWidget
     ~RenderWidget();
     virtual void initializeGL() override;
     virtual void paintGL() override;
-    virtual void resizeGL(int w, int h) override;
 
     NBodyParticleSystem *particleSystem() const;
 
