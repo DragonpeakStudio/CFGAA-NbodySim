@@ -90,7 +90,7 @@ Frame Slider, Slider to control the current frame.
 Frame End, End of the simulation, can increase or reduce to manipulate simulation length.  
 
 ## References
-Harada, T. 2007. Chapter 29. Real-Time Rigid Body Simulation on GPUs. In: Nguyen, H., ed. GPU gems 3. Boston, Mass. ; London: Addison-Wesley.
+Harada, T. 2007. Chapter 29. Real-Time Rigid Body Simulation on GPUs. In: Nguyen, H., ed. GPU gems 3. Boston, Mass. ; London: Addison-Wesley.  
 Nyland, L. Harris, M. Prins, J. 2007. Chapter 31. Fast N-Body Simulation with CUDA. In: Nguyen, H., ed. GPU gems 3. Boston, Mass. ; London: Addison-Wesley.
 ## Notes
 Note: Uses icons from Open Iconic: https://github.com/iconic/open-iconic under MIT Licence  
