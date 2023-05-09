@@ -7,10 +7,10 @@ email: s5408935@bournemouth.ac.uk
 ## Overview
 A GPU accelerated N-Body particle system for simulating gravitational effects, such as planet formation or asteroid collision. 
 The program uses OpenGL, via NGL, for compute shader based processing and particle rendering as well as QT6 for the user interface.
-As a basis for implementing the N-Body algorithm I will be using: https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-31-fast-n-body-simulation-cuda
+The basis of the algorithm I will be using is from Nyland, et al (2007).
 Although I will be using GLSL compute shaders not CUDA the same algorithm can be implemented.
 Initially I will implement the simple All Pairs algorithm, essentially just looping through all particles for each particle and summing forces (N^2 complexity). If time allows I might also look into some form of approximate acceleration structure for distant particles to avoid looping though them all, the above chapter briefly discusses hierarchical approaches.
-Collision between the particles is resolved using the approach described in https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-29-real-time-rigid-body-simulation-gpus. Which uses a combination of a repusive spring force and a dampening force to allow particles to bounce off of one another while still letting them settle into uniform arangements. 
+Collision between the particles is resolved using the approach described by Harada (2007). Which uses a combination of a repusive spring force and a dampening force to allow particles to bounce off of one another while still letting them settle into uniform arangements. 
 
 ## Design
 The program is divided into two main parts, A library containing the functionality to process the particles and the user interface which uses the classes provided by this library.
@@ -89,6 +89,9 @@ ToStart, Rewind, Pause, Play, ToEnd - playback controls for simulation, note tha
 Frame Slider, Slider to control the current frame.  
 Frame End, End of the simulation, can increase or reduce to manipulate simulation length.  
 
+## References
+Harada, T. 2007. Chapter 29. Real-Time Rigid Body Simulation on GPUs. In: Nguyen, H., ed. GPU gems 3. Boston, Mass. ; London: Addison-Wesley.
+Nyland, L. Harris, M. Prins, J. 2007. Chapter 31. Fast N-Body Simulation with CUDA. In: Nguyen, H., ed. GPU gems 3. Boston, Mass. ; London: Addison-Wesley.
 ## Notes
 Note: Uses icons from Open Iconic: https://github.com/iconic/open-iconic under MIT Licence  
 See resources/icons/ICON-LICENCE for details
