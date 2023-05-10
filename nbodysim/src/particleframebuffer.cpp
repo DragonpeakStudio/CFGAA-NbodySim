@@ -106,6 +106,12 @@ void ParticleFrameBuffer::deserialize(std::istream &_stream)
   unloadFromGpu();
 }
 
+void ParticleFrameBuffer::buildOctree(unsigned int _maxDepth, unsigned int _desiredParticlesPerCell)
+{
+  m_octree = Octree(_maxDepth, _desiredParticlesPerCell);
+  m_octree.generate(m_particles);
+}
+
 void ParticleFrameBuffer::generateSSBO()
 {
   glGenBuffers(1, &m_ssbo);

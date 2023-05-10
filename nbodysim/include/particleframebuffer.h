@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include "particle.h"
+#include "octree.h"
 /**
  * @brief A buffer containing a single frame of the particle system
  * 
@@ -87,6 +88,13 @@ class ParticleFrameBuffer
      * @param _stream the steam to load from
      */
     void deserialize(std::istream &_stream);
+    /**
+     * @brief Generates an octree from the particles to optimize calculations
+     * 
+     * @param _maxDepth the maximum depth of the octree
+     * @param _desiredParticlesPerCell the number of particles in a given cell below which the cell wil not be subdivided further
+     */
+    void buildOctree(unsigned int _maxDepth, unsigned int _desiredParticlesPerCell);
 
 
   private:
@@ -97,6 +105,7 @@ class ParticleFrameBuffer
     void generateSSBO();
     GLuint m_ssbo = 0;
     std::vector<Particle> m_particles;
+    Octree m_octree;
 };
 
 #endif
