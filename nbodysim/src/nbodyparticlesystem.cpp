@@ -129,6 +129,7 @@ void NBodyParticleSystem::processNextFrame(float _delta)
   auto lastSsbo = m_particleBuffers.back().ssbo();
   auto lastSize = m_particleBuffers.back().particleCount();
   m_particleBuffers.emplace_back(lastSize);
+  m_particleBuffers.back().buildOctree(8, 100);
   ngl::ShaderLib::use(m_updateProcess);
   ngl::ShaderLib::setUniform("delta", _delta);
   ngl::ShaderLib::setUniform("springCoeff", m_springCoeff);
