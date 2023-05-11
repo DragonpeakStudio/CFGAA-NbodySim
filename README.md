@@ -37,7 +37,7 @@ FrameSlider allows the user to adjust the current frame, max frames and fps of t
 ### Building
 Assumes NGL is installed in ~/NGL and vcpkg with NGL's requirements installed in ~/vcpkg and that Qt6 will be sucessfully found by ```find_package(Qt6 COMPONENTS OpenGL Widgets OpenGLWidgets REQUIRED )```. If it is not already in the path it might have to be added.
 An example on how Qt might need to be specified is ``` cmake -DCMAKE_PREFIX_PATH="$HOME/Qt/6.2.4/gcc_64" .. ```
-```
+```bash
 cd programming-project-Rowan-Cruse-Howse  
 mkdir build  
 cd build  
@@ -45,7 +45,7 @@ cmake ..
 make  
 ```
 ### Running
-```
+```bash
 ./NBodyUI  
 ```
 Requires a powerful GPU, Tested on a 2080 Super Max-Q w/ Ubuntu 22.04 & Qt 6.2.
