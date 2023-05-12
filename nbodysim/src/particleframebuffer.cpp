@@ -77,6 +77,11 @@ void ParticleFrameBuffer::serialize(std::ostream &_stream)
   _stream << '\n';
 }
 
+std::vector<Particle> &ParticleFrameBuffer::particles()
+{
+  return m_particles;
+}
+
 void ParticleFrameBuffer::serializeToGeo(std::ostream &_stream)
 {
   getFromGpu();
@@ -106,11 +111,6 @@ void ParticleFrameBuffer::deserialize(std::istream &_stream)
   unloadFromGpu();
 }
 
-void ParticleFrameBuffer::buildOctree(unsigned int _maxDepth, unsigned int _desiredParticlesPerCell)
-{
-  m_octree = Octree(_maxDepth, _desiredParticlesPerCell);
-  m_octree.generate(m_particles);
-}
 
 void ParticleFrameBuffer::generateSSBO()
 {

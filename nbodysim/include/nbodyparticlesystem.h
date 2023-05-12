@@ -4,6 +4,7 @@
 #pragma once
 
 #include <string_view>
+#include "octree.h"
 #include "particleframebuffer.h"
 /**
  * @brief NBody particle system with support for GPU processing
@@ -100,6 +101,8 @@ class NBodyParticleSystem
     std::string m_updateProcess; 
     float m_dampCoeff = .4;
     float m_springCoeff = 20.;
+    Octree m_octree;
+
 };
 
 #endif

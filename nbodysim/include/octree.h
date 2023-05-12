@@ -12,7 +12,7 @@ class Octree
 {
   public:
 
-    Octree(unsigned int _maxDepth = 8, unsigned int _desiredParticlesPerCell = 100, unsigned int _maxCpuDepth=2);
+    Octree(std::string_view _gpuProcess, unsigned int _maxDepth = 4, unsigned int _desiredParticlesPerCell = 100, unsigned int _maxCpuDepth=2);
     ~Octree();
     void generate(std::vector<Particle> &_particles);
     struct Node
@@ -27,6 +27,8 @@ class Octree
       GLuint m_shouldSplit=0;
     };
 
+    GLuint ssbo() const;
+
   private:
     unsigned int nodesAtDepth(unsigned int _depth);
     void processNode(size_t _nodeOffset, std::vector<Particle> &_particles, unsigned int _depth);
@@ -35,11 +37,13 @@ class Octree
     unsigned int sortAxis(size_t _start, size_t _end, std::vector<Particle> &_particles, short _axis, float _mid);
     std::tuple<ngl::Vec3, ngl::Vec3, float> calcBoundsAndMass(size_t _start, size_t _end, const std::vector<Particle> &_particles1);
     void buildSSBO();
+    void updateSSBO();
     unsigned int m_maxDepth;
     unsigned int m_desiredParticlesPerCell;
     std::vector<Node> m_nodes;
     unsigned int m_maxCpuDepth;
     GLuint m_ssbo = 0;
+    std::string m_gpuProcess; 
 
 };
 

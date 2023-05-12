@@ -1,9 +1,11 @@
 #include "octree.h"
 #include <algorithm>
 #include <iostream>
-Octree::Octree  (unsigned int _maxDepth, unsigned int _desiredParticlesPerCell, unsigned int _maxCpuDepth) : m_maxDepth(_maxDepth), m_desiredParticlesPerCell(_desiredParticlesPerCell), m_maxCpuDepth(_maxCpuDepth)
+#include <ngl/ShaderLib.h>
+Octree::Octree  (std::string_view _gpuProcess, unsigned int _maxDepth, unsigned int _desiredParticlesPerCell, unsigned int _maxCpuDepth) : m_maxDepth(_maxDepth), m_desiredParticlesPerCell(_desiredParticlesPerCell), m_maxCpuDepth(_maxCpuDepth)
 {
-
+  //TODO this currently forces all layers on cpu, remove when implementing gpu don't forget!!!
+  m_maxCpuDepth = m_maxDepth;
   m_nodes.resize(nodesAtDepth(m_maxCpuDepth+1));//allocate the max possible space so that on the gpu we don't have to worry about managing placement in the array, we can just fill the space after our current node
 }
 
@@ -15,6 +17,10 @@ Octree::~Octree()
 void Octree::generate(std::vector<Particle> &_particles)
 {
   //do early steps 
+  if(m_nodes[0].m_shouldSplit)
+  {
+    std::fill(m_nodes.begin(), m_nodes.end(), Node{});
+  }
   auto bounds = calcBoundsAndMass(0, _particles.size(), _particles);
   m_nodes[0] = Node{0, (GLuint)(_particles.size()), 1, 0, std::get<0>(bounds), std::get<2>(bounds), std::get<1>(bounds),1};
   processNode(0, _particles, 0);
@@ -24,10 +30,37 @@ void Octree::generate(std::vector<Particle> &_particles)
   }
 
   //upload to gpu
-  buildSSBO();
+  if(m_ssbo)
+  {
+    updateSSBO();
+  }
+  else
+  {
+    buildSSBO();
+  }
 
-  //divide further on gpu
-  
+  // TODO divide further on gpu
+  // for(unsigned int i = m_maxCpuDepth; i < m_maxDepth; i++)
+  // {
+  //   unsigned int layerStart = nodesAtDepth(i-1);
+  //   unsigned int layerEnd = nodesAtDepth(i);
+  //   unsigned int nextLayerEnd = nodesAtDepth(i+1);
+    
+  //   ngl::ShaderLib::use(m_gpuProcess);
+  //   GLint loc = glGetUniformLocation(ngl::ShaderLib::getProgramID(m_gpuProcess), "depth");//have to do this one manually as ngl has no uint override for uniforms
+  //   glUniform1ui(loc, i);
+  //   GLint loc = glGetUniformLocation(ngl::ShaderLib::getProgramID(m_gpuProcess), "layerStart");//have to do this one manually as ngl has no uint override for uniforms
+  //   glUniform1ui(loc, layerStart);
+  //   GLint loc = glGetUniformLocation(ngl::ShaderLib::getProgramID(m_gpuProcess), "layerEnd");//have to do this one manually as ngl has no uint override for uniforms
+  //   glUniform1ui(loc, layerEnd);
+  //   GLint loc = glGetUniformLocation(ngl::ShaderLib::getProgramID(m_gpuProcess), "nextLayerEnd");//have to do this one manually as ngl has no uint override for uniforms
+  //   glUniform1ui(loc, nextLayerEnd);
+  //   glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_ssbo);
+  //   glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0,m_ssbo);
+  //   glDispatchCompute((layerEnd-layerStart)/64+1, 1, 1);
+  //   glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+  // }
+
 }
 
 unsigned int Octree::nodesAtDepth(unsigned int _depth)
@@ -46,7 +79,7 @@ unsigned int Octree::nodesAtDepth(unsigned int _depth)
 void Octree::processNode(size_t _nodeOffset, std::vector<Particle> &_particles, unsigned int _depth)
 {
   Node &node = m_nodes[_nodeOffset];
-  if(node.m_particlesEnd-node.m_particlesStart <= m_desiredParticlesPerCell)
+  if(node.m_particlesEnd-node.m_particlesStart <= m_desiredParticlesPerCell || _depth >= m_maxDepth)
   {
     node.m_shouldSplit = 0;
   }
@@ -96,6 +129,11 @@ unsigned int Octree::sortAxis(size_t _start, size_t _end, std::vector<Particle> 
     
   }
   return midPoint+_start;
+}
+
+GLuint Octree::ssbo() const
+{
+  return m_ssbo;
 }
 
 void Octree::divideNode(size_t _nodeOffset,std::vector<Particle> &_particles, unsigned int _depth)
@@ -188,6 +226,13 @@ void Octree::buildSSBO()
   glGenBuffers(1, &m_ssbo);
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_ssbo);
   glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(Node)*nodesAtDepth(m_maxDepth+1), nullptr, GL_DYNAMIC_DRAW);
-  glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, m_nodes.size(), m_nodes.data());
+  updateSSBO();
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+}
+
+void Octree::updateSSBO()
+{
+  GLubyte val = 0;
+  glClearBufferData(GL_SHADER_STORAGE_BUFFER, GL_R8UI, GL_RED_INTEGER, GL_UNSIGNED_BYTE, &val);
+  glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, m_nodes.size(), m_nodes.data());
 }

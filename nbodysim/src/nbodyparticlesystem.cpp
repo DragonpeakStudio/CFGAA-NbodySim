@@ -4,7 +4,7 @@
 #include <ngl/Vec4.h>
 #include <ngl/ShaderLib.h>
 #include <cassert>
-NBodyParticleSystem::NBodyParticleSystem(std::string_view _updateProcess) : m_updateProcess(_updateProcess)
+NBodyParticleSystem::NBodyParticleSystem(std::string_view _updateProcess) : m_updateProcess(_updateProcess), m_octree("", 6, 30)
 {
   m_particleBuffers.emplace_back(0);//blank frame 0 for now
 }
@@ -125,11 +125,12 @@ void NBodyParticleSystem::serializeToGeo(std::ostream &_stream, size_t _frameNum
 }
 void NBodyParticleSystem::processNextFrame(float _delta)
 {
-  if(!m_particleBuffers.back().ssbo())m_particleBuffers.back().loadToGpu();
+  m_particleBuffers.back().unloadFromGpu();
+  m_octree.generate(m_particleBuffers.back().particles());
+  m_particleBuffers.back().loadToGpu();
   auto lastSsbo = m_particleBuffers.back().ssbo();
   auto lastSize = m_particleBuffers.back().particleCount();
   m_particleBuffers.emplace_back(lastSize);
-  m_particleBuffers.back().buildOctree(8, 100);
   ngl::ShaderLib::use(m_updateProcess);
   ngl::ShaderLib::setUniform("delta", _delta);
   ngl::ShaderLib::setUniform("springCoeff", m_springCoeff);
@@ -141,6 +142,8 @@ void NBodyParticleSystem::processNextFrame(float _delta)
   glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0,lastSsbo);
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_particleBuffers.back().ssbo());
   glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1,m_particleBuffers.back().ssbo());
+  glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_octree.ssbo());
+  glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2,m_octree.ssbo());
   glDispatchCompute((m_particleBuffers.back().particleCount())/128+1, 1, 1);
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
   m_particleBuffers[m_particleBuffers.size()-2].unloadFromGpu();

@@ -1,0 +1,171 @@
+#version 430 core
+
+layout(local_size_x = 128, local_size_y = 1, local_size_z = 1) in;
+struct Particle
+{
+  vec4 position;
+  vec3 velocity;
+  float radius;
+  vec3 colour;
+  float mass;
+};
+
+struct Node
+{
+  uint m_particlesStart;
+  uint m_particlesEnd;
+  uint m_childrenOffset;
+  uint m_parentOffset;
+  vec3 m_minExtent;
+  float m_totalMass;
+  vec3 m_maxExtent;
+  uint m_shouldSplit;
+};
+
+layout(std430, binding = 0) buffer particlesIn {
+
+  Particle particleIn[];
+};
+layout(std430, binding = 1) buffer particlesOut {
+
+  Particle particleOut[];
+};
+layout(std430, binding = 2) buffer octree {
+
+  Node octreeNodes[];
+};
+
+const float gravConst = 6.674*pow(10, -2.);//physical is 6.674*10^-11 but this is to small to work accurately due to float precision so i use a higher value
+uniform float delta;
+uniform float springCoeff = 20.;
+uniform float dampCoeff = .4;
+uniform uint particleCount;
+
+uint findNode(vec3 pos)
+{
+  Node n = octreeNodes[0];
+  uint ni = 0;
+  while(n.m_shouldSplit == 1)
+  {
+    vec3 mid = (n.m_maxExtent-n.m_minExtent)/2+n.m_minExtent;
+    int offset = 0;
+    if(pos.x < mid.x)
+    {
+      if(pos.y < mid.y)
+      {
+        if(pos.z < mid.z)
+        {
+          offset = 0;
+        }
+        else
+        {
+          offset = 1;
+        }
+      }
+      else
+      {
+        if(pos.z < mid.z)
+        {
+          offset = 2;
+        }
+        else
+        {
+          offset = 3;
+        }
+      }
+    }
+    else
+    {
+      if(pos.y < mid.y)
+      {
+        if(pos.z < mid.z)
+        {
+          offset = 4;
+        }
+        else
+        {
+          offset = 5;
+        }
+      }
+      else
+      {
+        if(pos.z < mid.z)
+        {
+          offset = 6;
+        }
+        else
+        {
+          offset = 7;
+        }
+      }
+    }
+    ni = n.m_childrenOffset+offset;
+    n = octreeNodes[n.m_childrenOffset+offset];
+  }
+  return ni;
+}
+
+vec3 sumNodeForces(uint idx, vec3 pos, float mass)
+{
+  vec3 sum = vec3(0);
+  uint currentIdx = octreeNodes[idx].m_parentOffset;
+  while(currentIdx != 0)
+  {
+    Node node = octreeNodes[currentIdx];
+    if(node.m_shouldSplit != 0)
+    {
+      for(uint i = 0; i < 8; i++)
+      {
+        if(node.m_childrenOffset+1 != idx)
+        {
+          Node sn = octreeNodes[node.m_childrenOffset+i];
+          vec3 mid = (sn.m_maxExtent-sn.m_minExtent)/2+sn.m_minExtent;
+          vec3 vec = mid-pos;
+          float dist2 = dot(vec,vec);
+          float dist = sqrt(dist2);
+          vec3 nvec = vec/dist;
+          sum += nvec*gravConst*((mass*sn.m_totalMass)/dist2);
+        }
+      }
+    }
+    idx = currentIdx;
+    currentIdx = node.m_parentOffset;
+  }
+  return sum;
+}
+
+void main()
+{
+  if(gl_GlobalInvocationID.x < particleCount)//early out for overrunning
+  {
+    Particle p = particleIn[gl_GlobalInvocationID.x];
+    uint nodeIdx = findNode(p.position.xyz);
+    Node node = octreeNodes[nodeIdx];
+    vec3 sum = sumNodeForces(nodeIdx, p.position.xyz, p.mass);
+    //get neigbor nodes and check particles
+    for(uint i = node.m_particlesStart; i < node.m_particlesEnd; i++)
+    {
+      if(i != gl_GlobalInvocationID.x)
+      {
+        Particle b = particleIn[i];
+        vec3 vec = b.position.xyz-p.position.xyz;
+        float dist2 = dot(vec,vec);
+        float dist = sqrt(dist2);
+        vec3 nvec = vec/dist;
+        if(dist < p.radius+b.radius)
+        {//collision based on https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-29-real-time-rigid-body-simulation-gpus
+          vec3 repusiveForce = nvec*(-springCoeff*(p.radius*2-dist));
+          vec3 dampeningForce = (b.velocity-p.velocity)*dampCoeff;
+          sum+=(repusiveForce+dampeningForce)*(p.mass+b.mass);
+          //p.position.xyz+=nvec*(dist-(p.radius+b.radius))/2.;
+        }
+        sum += nvec*gravConst*((b.mass*p.mass)/dist2);
+        
+      }
+    }
+    p.velocity += sum*delta;
+    p.position.xyz += p.velocity*delta;
+
+    particleOut[gl_GlobalInvocationID.x] = p;
+  }
+}

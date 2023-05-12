@@ -37,7 +37,7 @@ void RenderWidget::initializeGL()
 
   ngl::ShaderLib::createShaderProgram(updateProcessShader);
   ngl::ShaderLib::attachShader("updateProcessShaderComp", ngl::ShaderType::COMPUTE);
-  ngl::ShaderLib::loadShaderSource("updateProcessShaderComp", "shaders/updateprocess.comp");
+  ngl::ShaderLib::loadShaderSource("updateProcessShaderComp", "shaders/acceleratedupdateprocess.comp");
   ngl::ShaderLib::compileShader("updateProcessShaderComp");
   ngl::ShaderLib::attachShaderToProgram(updateProcessShader, "updateProcessShaderComp");
   ngl::ShaderLib::linkProgramObject(updateProcessShader);
