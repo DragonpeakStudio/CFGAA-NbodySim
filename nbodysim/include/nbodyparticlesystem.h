@@ -90,6 +90,8 @@ class NBodyParticleSystem
      * @return size_t 
      */
     size_t currentFrameCount() const;
+    const Octree &octree() const;
+
   private:
   /**
    * @brief Process the next frame after the current end frame

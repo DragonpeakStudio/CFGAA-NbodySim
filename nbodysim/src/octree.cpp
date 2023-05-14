@@ -14,6 +14,11 @@ Octree::~Octree()
 
 }
 
+size_t Octree::nodeCount() const
+{
+  return m_nodes.size();
+}
+
 void Octree::generate(std::vector<Particle> &_particles)
 {
   //do early steps 

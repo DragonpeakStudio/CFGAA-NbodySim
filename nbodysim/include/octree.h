@@ -29,6 +29,8 @@ class Octree
 
     GLuint ssbo() const;
 
+    size_t nodeCount() const;
+
   private:
     unsigned int nodesAtDepth(unsigned int _depth);
     void processNode(size_t _nodeOffset, std::vector<Particle> &_particles, unsigned int _depth);
@@ -44,6 +46,7 @@ class Octree
     unsigned int m_maxCpuDepth;
     GLuint m_ssbo = 0;
     std::string m_gpuProcess; 
+
 
 };
 

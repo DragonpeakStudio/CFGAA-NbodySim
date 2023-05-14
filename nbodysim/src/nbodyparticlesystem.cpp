@@ -68,6 +68,10 @@ void NBodyParticleSystem::setSpringCoeff(float _springCoeff)
 {
   m_springCoeff = _springCoeff;
 }
+const Octree &NBodyParticleSystem::octree() const
+{
+  return m_octree;
+}
 void NBodyParticleSystem::serialize(std::ostream &_stream)
 {
   _stream << m_particleBuffers.size() << "\n"; 

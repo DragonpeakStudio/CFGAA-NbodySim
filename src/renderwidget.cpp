@@ -1,4 +1,5 @@
 #include "renderwidget.h"
+#include <ngl/VAOPrimitives.h>
 #include <ngl/ShaderLib.h>
 
 RenderWidget::RenderWidget()
@@ -87,6 +88,8 @@ void RenderWidget::paintGL()
   glViewport(0,0, size().width(), size().height());
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   m_particleRenderer->drawParticles(m_particleSystem->getFrame(m_currentFrame), m_camera.projMat((float)size().width()/(float)size().height())*m_camera.viewMat());
+
+
   //update();//Forces constant updates to allow easier debugging from nsight
 }
 
