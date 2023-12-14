@@ -1,5 +1,6 @@
 # CFGAA - Rowan Cruse Howse - Assignment - N-Body particle sim
 This repo is a copy of a github classrooms repo used in this project. I have created this copy under my main github account for as an effort to put all my projects in one place.
+This project requires the NGL library, which is available at https://github.com/NCCA/NGL. It also requires QT6.
 ![Screenshot of application](/docs/images/Screenshot%20from%202023-04-29%2009-07-51.png "Screenshot")
 
 
